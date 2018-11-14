@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "type": "folder",
+    "icon": "folder.svg",
+    "name": "todo list demo",
+    "children": [
+      {
+        "id": "2",
+        "type": "program",
+        "name": "TodoList",
+        "icon": "program.svg",
+        "children": [
+          {
+            "id": "3",
+            "type": "folder",
+            "name": "forms",
+            "icon": "folder.svg",
+            "children": [
+              {
+                "id": "4",
+                "type": "form",
+                "name": "TodoListMain",
+                "icon": "form.svg",
+                "path": "../../TodoListMain.json",
+                "controls": [
+                  {
+                    "name": "txbDesc",
+                    "isGenerate": "false"
+                  },
+                  {
+                    "name": "btnAddTask",
+                    "isGenerate": "false"
+                  },
+                  {
+                    "name": "sbTasks",
+                    "isGenerate": "false"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "folder",
+            "name": "Tasks",
+            "children": [
+              {
+                "type": "task",
+                "children": [{}]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,64 @@
+{
+    "name": "magicext1",
+    "displayName": "magicExt1",
+    "description": "test",
+    "version": "0.0.1",
+    "publisher": "evardi",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "categories": [
+        "Other"
+    ],     
+
+    "activationEvents": [
+        "onCommand:extension.sayHello",
+        "onCommand:magic.programsList",
+        "onView:programsTree"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "viewsContainers": {
+			"activitybar": [
+				{
+					"id"   : "magic-explorer",
+					"title": "Magic Explorer",
+					"icon" : "media/magic-logo.svg"
+				}
+			]
+		},
+		"views": {
+			"magic-explorer" : [
+				{
+					"id"  : "programsTree",
+					"name": "Programs"
+				}
+			]
+		},
+        "commands": [
+            {
+				"command" : "magic.programsList",
+				"title"   : "Magic Programs list",
+				"category": "Magic"
+			},
+            {
+                "command": "extension.sayHello",
+                "title": "Hello World"
+            }
+         
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    }
+}
