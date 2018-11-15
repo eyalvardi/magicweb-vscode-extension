@@ -1,24 +1,26 @@
 
+declare type MagicTypeItem =  "folder" | "program" | "task" | "form" | "field" | "component";
+
+
 interface MagicComponentTreeItem {
     name        : string;
     htmlPath    : string;
     tsPath      : string;
     cssPath?    : string;
-    icon?       : string;
+    icon?       : MagicTypeItem;
     status?     : string;
 }
 
 interface MagicTreeItem {
-    id        : number;
-    type      : "folder" | "program" | "task" | "form";
-    name      : string;
-    icon?     : string;
-    path?     : string;
-    status?   : "sync" | "notSync" | "generate";
+    id          : string;
+    name        : string;
+    type        : MagicTypeItem;
+    icon?       : MagicTypeItem;
+    path?       : string;
     isGenerate? : boolean,
-    children? : MagicTreeItem[];
-    component?: MagicComponentTreeItem,
-    controls?: MagicTreeItem[];
+    children?   : MagicTreeItem[];
+    component?  : MagicComponentTreeItem,
+    controls?   : MagicTreeItem[];
 
 }
 

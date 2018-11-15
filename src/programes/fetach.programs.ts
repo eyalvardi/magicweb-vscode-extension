@@ -8,23 +8,180 @@ export async function fetchPrograms() : Promise<MagicTreeItem[]>{
     let json = [
         {
           "type": "folder",
-          "icon": "folder.svg",
+          "icon": "folder",
           "name": "todo list demo",
           "children": [
             {
               "type": "program",
               "name": "TodoList",
-              "icon": "program.svg",
+              "icon": "program",
               "children": [
                 {
                   "type": "folder",
                   "name": "forms",
-                  "icon": "folder.svg",
+                  "icon": "folder",                  
                   "children": [
                     {
                       "type": "form",
                       "name": "TodoListMain",
-                      "icon": "form.svg",
+                      "icon": "form",
+                      "path": "../../TodoListMain.json",
+                      "controls": [
+                        {
+                          "name": "txbDesc",
+                          "icon": "field",
+                          "isGenerate": "false"
+                        },
+                        {
+                          "name": "btnAddTask",
+                          "icon": "field",
+                          "isGenerate": "false"
+                        },
+                        {
+                          "name": "sbTasks",
+                          "icon": "field",
+                          "isGenerate": "false"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "folder",
+                  "name": "Tasks",
+                  "children": [
+                    {
+                      "type" : "task",
+                      "name" : "TodoListTable",
+                      "children": [
+                        {
+                          "type": "form",
+                          "name": "TodoListTableForm",
+                          "icon": "form",
+                          "path": "../../TodoListMain.json",
+                          "controls": [
+                            {
+                              "name": "txbDesc",
+                              "isGenerate": "false"
+                            },
+                            {
+                              "name": "btnAddTask",
+                              "isGenerate": "false"
+                            },
+                            {
+                              "name": "sbTasks",
+                              "isGenerate": "false"
+                            }
+                          ]
+                        }    
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "program",
+              "name": "Counter",
+              "icon": "program",
+              "children": [
+                {
+                  "type": "folder",
+                  "name": "forms",
+                  "icon": "folder",
+                  "children": [
+                    {
+                      "type": "form",
+                      "name": "TodoListMain",
+                      "icon": "form",
+                      "path": "../../TodoListMain.json",
+                      "controls": [
+                        {
+                          "name": "txbDesc",
+                          "isGenerate": "false"
+                        },
+                        {
+                          "name": "btnAddTask",
+                          "isGenerate": "false"
+                        },
+                        {
+                          "name": "sbTasks",
+                          "isGenerate": "false"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "folder",
+                  "name": "Tasks",
+                  "children": [
+                    {
+                      "type": "task",
+                      "children": [{}]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "program",
+              "name": "Agent Travel",
+              "icon": "program",
+              "children": [
+                {
+                  "type": "folder",
+                  "name": "forms",
+                  "icon": "folder",
+                  "children": [
+                    {
+                      "type": "form",
+                      "name": "TodoListMain",
+                      "icon": "form",
+                      "path": "../../TodoListMain.json",
+                      "controls": [
+                        {
+                          "name": "txbDesc",
+                          "isGenerate": "false"
+                        },
+                        {
+                          "name": "btnAddTask",
+                          "isGenerate": "false"
+                        },
+                        {
+                          "name": "sbTasks",
+                          "isGenerate": "false"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "folder",
+                  "name": "Tasks",
+                  "children": [
+                    {
+                      "type": "task",
+                      "children": [{}]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "program",
+              "name": "TodoList 2",
+              "icon": "program",
+              "children": [
+                {
+                  "type": "folder",
+                  "name": "forms",
+                  "icon": "folder",
+                  "children": [
+                    {
+                      "type": "form",
+                      "name": "TodoListMain",
+                      "icon": "form",
                       "path": "../../TodoListMain.json",
                       "controls": [
                         {

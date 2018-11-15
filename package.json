@@ -8,13 +8,17 @@
         "vscode": "^1.28.0"
     },
     "categories": [
+        "Programming Languages",
+        "Snippets",
         "Other"
-    ],     
+    ],  
 
     "activationEvents": [
         "onCommand:extension.sayHello",
         "onCommand:magic.programsList",
-        "onView:programsTree"
+        "onCommand:markdown.showPreview",
+        "onView:programsTree",
+        "onLanguage:markdown"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -31,23 +35,58 @@
 			"magic-explorer" : [
 				{
 					"id"  : "programsTree",
-					"name": "Programs"
+                    "name": "Programs"
 				}
 			]
-		},
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "magic.programsList",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "markdown.showPreview"
+                },
+                {
+                    "command": "magic.programsList"
+                }
+            ]
+        },
         "commands": [
             {
 				"command" : "magic.programsList",
 				"title"   : "Magic Programs list",
-				"category": "Magic"
+                "category": "Magic",
+                "icon": {
+					"light": "resources/light/refresh.svg",
+					"dark" : "resources/dark/refresh.svg"
+				}
+            },
+            {
+				"command": "programsTree.refresh",
+				"title": "Refresh",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark" : "resources/dark/refresh.svg"
+				}
 			},
             {
                 "command": "extension.sayHello",
                 "title": "Hello World"
             }
          
+        ],
+        "snippets": [
+            {
+                "language": "html",
+                "path": "./sinippets/magic.json"
+            }
         ]
     },
+    "markdown": "github",
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",

@@ -1,0 +1,32 @@
+{
+   "magic list": {
+        "prefix" : "mg-list",
+        "body"   : [
+            "<div *ngFor=\"let row of task.Records.list\">",
+            "\t\t<div id=\"row\" *ngIf=\"mg.ifRowCreated(row.rowId)\"",
+            "\t\t[formGroup]=\"mg.getFormGroupByRow(row.rowId)\"",
+            "\t\t[ngClass]=\"{ 'selected': mg.isRowSelected('', row.rowId)}\">",
+            "\t\t\t\t{{ row | json }}",
+            "\t\t</div>",
+            "</div>"
+        ],
+        "description" : "Create HTML sinippet of Magic records list"
+   },
+   "magic select": {
+    "prefix" : "mg-select",
+    "body"   : [
+        "<select magic=\"${1:magic}\"",
+        "\t(change)=\"mg.onSelectionChanged($event,'${1:magic}')\"",
+        "\tvalue   =\"mg.getSelectedValue('${1:magic}')\">",
+        "\t<option",
+        "\t\t*ngFor=\"let o of mg.getItemListValues('${1:magic}');\"",
+        "\t\t[selected]=\"o.index == mg.getSelectedValue('${1:magic}')\"",
+        "\t\t[value]=\"o.index\">",
+        "\t\t\t{{o.realString}}",
+        "\t</option>",
+        "</select>"
+    ],
+    "description" : "Create HTML sinippet of Magic select"
+} 
+
+}
