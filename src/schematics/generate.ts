@@ -19,9 +19,9 @@ export class Generate {
         ].join(' ');
 
     }
-    protected base = 'ng g';
+    protected base       = 'ng g';
     protected collection = Schematics.angularCollection;
-    protected options = new Map<string, string>();
+    protected options    = new Map<string, string>();
 
     constructor(contextPath = '') {
 

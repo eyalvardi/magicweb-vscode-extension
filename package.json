@@ -43,6 +43,10 @@
                 {
                     "command": "magic.programsList",
                     "group": "navigation"
+                },
+                {
+                    "command": "magic.generateAll",
+                    "group": "navigation"
                 }
             ],
             "view/item/context": [
@@ -54,8 +58,8 @@
                 },
                 {
                     "command": "magic.generateComponent",
-                    "group": "magicschematics@1",
-                    "when": "inMagicProject"
+                    "group"  : "magicschematics@1",
+                    "when"   : "inMagicProject"
                 }
             ],
             "explorer/context": [
@@ -67,6 +71,15 @@
             ]
         },
         "commands": [
+            {
+                "command": "magic.generateAll",
+                "title": "Generate All",
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/generate.svg",
+                    "dark": "resources/dark/generate.svg"
+                }
+            },
             {
                 "command": "magic.programsList",
                 "title": "Magic Programs list",

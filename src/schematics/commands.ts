@@ -161,9 +161,9 @@ export class Commands {
 
             vscode.window.setStatusBarMessage(`Schematics worked!`, 5000);
 
-            try {
-                await this.jumpToFile(stdout, cwd, defaultOption, schema);
-            } catch (error) {}
+            // try {
+            //     await this.jumpToFile(stdout, cwd, defaultOption, schema);
+            // } catch (error) {}
 
         } catch (error) {
 

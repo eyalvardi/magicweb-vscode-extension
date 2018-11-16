@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
+
 import { MagicData } from "./fetach.programs";
 import { ProgramsTreeDataProvider } from './programsTreeDataProvider';
 import { MagicItem } from './magicTreeItem';
@@ -53,13 +55,31 @@ const mgTextProvider : vscode.TextDocumentContentProvider = {
 };
 
 export function activatePrograms(context: vscode.ExtensionContext) {
-    console.log('activate programs');
+    console.log('Activate MagicWeb Extension');
     //const rootPath = vscode.workspace.rootPath;   
    
 
     // Show Quick Pick
     let mgpl = vscode.commands.registerCommand('magic.programsList',programsList);
     context.subscriptions.push(mgpl);
+
+    // Generate All Magic Components
+    let genAll = vscode.commands.registerCommand('magic.generateAll',async (context) => {
+
+        const workspaceFolderPath = await Commands.getWorkspaceFolderPath(Commands.getContextPath(context));
+
+        await Commands.launchCommand(
+            "ng g @magic-xpa/cli:magic",
+            workspaceFolderPath,
+            "magic",
+            ""
+        );
+
+    });
+    context.subscriptions.push(genAll);
+
+
+
 
     // Show Programs Tree
     const programsTreeProvider = new ProgramsTreeDataProvider( magicData );
@@ -71,16 +91,20 @@ export function activatePrograms(context: vscode.ExtensionContext) {
     let mg1 = vscode.workspace.registerTextDocumentContentProvider( "magic" , mgTextProvider )
     context.subscriptions.push(mg1);
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
     const gcc = vscode.commands.registerCommand('magic.generateComponent', async (context) => {
 
-        await Commands.generate(context, {
-            collectionName: Schematics.angularCollection,
-            schemaName: 'component'
-        });
+        const workspaceFolderPath = await Commands.getWorkspaceFolderPath();
+        const schematicsCommand = `ng g @magic-xpa/cli:magic --component=${context.name}`;
+        await Commands.launchCommand(
+            schematicsCommand,
+            workspaceFolderPath,
+            "magic",
+            ""
+        );
 
+        const filePath = path.join( workspaceFolderPath , context.path , `${context.name}.component.html`);
+        const document = await vscode.workspace.openTextDocument( filePath );
+        await vscode.window.showTextDocument(document);
     });
     context.subscriptions.push(gcc);
 
