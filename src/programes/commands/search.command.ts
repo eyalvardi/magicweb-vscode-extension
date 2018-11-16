@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 
-import { magicData }            from '../programs.commands';
+import { magicData }            from '../magic.extension';
 import { ShowPreviewCommand }   from './ShowPreviewCommand';
-import { MagicItem }            from '../magicTreeItem';
+import { MagicItem }            from '../providers/magicTreeItem';
 
 export function addSearchCommand( context:  vscode.ExtensionContext ) {
     // Show Quick Pick
