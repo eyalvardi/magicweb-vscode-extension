@@ -3,6 +3,8 @@ import { MagicData } from "./fetach.programs";
 import { ProgramsTreeDataProvider } from './programsTreeDataProvider';
 import { MagicItem } from './magicTreeItem';
 import { ShowPreviewCommand } from './commands/ShowPreviewCommand';
+import { Commands } from '../schematics/commands';
+import { Schematics } from '../schematics/schematics';
 
 export const magicData = new MagicData();
 
@@ -52,7 +54,7 @@ const mgTextProvider : vscode.TextDocumentContentProvider = {
 
 export function activatePrograms(context: vscode.ExtensionContext) {
     console.log('activate programs');
-    const rootPath = vscode.workspace.rootPath;   
+    //const rootPath = vscode.workspace.rootPath;   
    
 
     // Show Quick Pick
@@ -68,6 +70,20 @@ export function activatePrograms(context: vscode.ExtensionContext) {
     // ????
     let mg1 = vscode.workspace.registerTextDocumentContentProvider( "magic" , mgTextProvider )
     context.subscriptions.push(mg1);
+
+    // The command has been defined in the package.json file
+    // Now provide the implementation of the command with  registerCommand
+    // The commandId parameter must match the command field in package.json
+    const gcc = vscode.commands.registerCommand('magic.generateComponent', async (context) => {
+
+        await Commands.generate(context, {
+            collectionName: Schematics.angularCollection,
+            schemaName: 'component'
+        });
+
+    });
+    context.subscriptions.push(gcc);
+
 }
 export function deactivate(){
 
