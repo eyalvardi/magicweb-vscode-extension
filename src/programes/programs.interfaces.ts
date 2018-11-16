@@ -19,6 +19,7 @@ interface MagicTreeItem {
     path?       : string;
     isGenerate? : boolean,
     children?   : MagicTreeItem[];
+    size?       : number;
     component?  : MagicComponentTreeItem,
     controls?   : MagicTreeItem[];
 

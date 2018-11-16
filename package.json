@@ -14,7 +14,7 @@
     ],
     "activationEvents": [
         "workspaceContains:angular.json",
-        "onCommand:magic.programsList",
+        "onCommand:magic.searchPrograms",
         "onCommand:markdown.showPreview",
         "onView:programsTree",
         "onLanguage:markdown"
@@ -24,13 +24,20 @@
         "viewsContainers": {
             "activitybar": [
                 {
-                    "id": "magic-explorer",
-                    "title": "Magic Explorer",
-                    "icon": "media/magic-logo.svg"
+                    "id"   : "magic-explorer",
+                    "title": "",                   
+                    "icon" : "media/magic-logo.svg"
                 }
             ]
         },
         "views": {
+            "explorer":[
+                {
+                    "id": "programsTree",
+                    "name": "Magic programs tree",
+                    "when": "inMagicProject"
+                }
+            ],
             "magic-explorer": [
                 {
                     "id": "programsTree",
@@ -41,11 +48,15 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "magic.programsList",
+                    "command": "magic.refresh",
+                    "group": "navigation"
+                },                
+                {
+                    "command": "magic.generateAll",
                     "group": "navigation"
                 },
                 {
-                    "command": "magic.generateAll",
+                    "command": "magic.searchProgram",
                     "group": "navigation"
                 }
             ],
@@ -54,12 +65,24 @@
                     "command": "markdown.showPreview"
                 },
                 {
-                    "command": "magic.programsList"
+                    "command": "magic.searchProgram",
+                    "when"   : "inMagicProject"
+
                 },
                 {
                     "command": "magic.generateComponent",
                     "group"  : "magicschematics@1",
-                    "when"   : "inMagicProject"
+                    "when"   : "viewItem == form"
+                },
+                {
+                    "command": "magic.generateControl",
+                    "group"  : "magicschematics@1",
+                    "when"   : "viewItem == field"
+                },
+                {
+                    "command": "magic.openComponentHtml",
+                    "group"  : "magicschematics@1",
+                    "when"   : "viewItem == form"
                 }
             ],
             "explorer/context": [
@@ -81,17 +104,17 @@
                 }
             },
             {
-                "command": "magic.programsList",
-                "title": "Magic Programs list",
+                "command": "magic.searchProgram",
+                "title": "Search Magic Program",
                 "category": "Magic",
                 "icon": {
-                    "light": "resources/light/refresh.svg",
-                    "dark": "resources/dark/refresh.svg"
+                    "light": "resources/light/search.svg",
+                    "dark": "resources/dark/search.svg"
                 }
             },
             {
-                "command": "programsTree.refresh",
-                "title": "Refresh",
+                "command": "magic.refresh",
+                "title": "Refresh Magic tree",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
@@ -100,6 +123,14 @@
             {
                 "command": "magic.generateComponent",
                 "title": "Generate a component"
+            },
+            {
+                "command": "magic.generateControl",
+                "title": "Generate a control into component"
+            },
+            {
+                "command": "magic.openComponentHtml",
+                "title": "Open component Html"
             }
         ],
         "snippets": [

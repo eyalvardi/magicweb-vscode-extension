@@ -6,6 +6,8 @@ let counter = 0;
 
 export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 
+	size? : number; 
+
 	get id() : string {
 		return super.id || "-1";
 	}
@@ -32,6 +34,9 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 	}
 	get controls(): MagicTreeItem[] {
 		return this.mgTreeItem.controls || [];
+	}	
+	get contextValue(){
+		return this.mgTreeItem.type;
 	}
 
 	static isChildren(item: MagicTreeItem){
@@ -47,19 +52,21 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 						   vscode.TreeItemCollapsibleState.None
 			);
 		super.id = `${counter++}`;
-		this.command = new ShowPreviewCommand(this);	
-
+		this.command = new ShowPreviewCommand(this);
 	}
 	get tooltip(): string {
 		return `${this.type} - ${this.label}`;
 	}
 	get iconPath(){
+		let icon = this.icon as string;
+		if(this.type === "field" && this.isGenerate){
+			icon = `${icon}-gen`;
+		}
 		return {
-				light: path.join(baseIconPath, 'light', `${this.icon}.svg`),
-				dark : path.join(baseIconPath, 'dark', `${this.icon}.svg`)
+				light: path.join(baseIconPath, 'light', `${icon}.svg`),
+				dark : path.join(baseIconPath, 'dark', `${icon}.svg`)
 		};
 	}
-	contextValue = 'dependency';
 }
 
 const baseIconPath =  path.join(__filename, '..', '..', '..', 'resources');

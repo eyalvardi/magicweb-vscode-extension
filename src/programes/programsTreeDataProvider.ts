@@ -24,18 +24,27 @@ export class ProgramsTreeDataProvider implements vscode.TreeDataProvider<MagicTr
 		// if( item.type === "folder" && item.children && item.children.length === 1){
 		// 	item = item.children[0];
 		// }
+		// if( item.size && item.size > 0){
+		// 	item.name =  `${item.name} (${item.size})`;
+		// }
 		return new MagicItem(item);
     }
 
 	getChildren(element?: MagicItem) {
+		let result:any[] = [];
 		if (element && MagicItem.isChildren(element as MagicTreeItem)){
 			if( element.children && element.children.length > 0){ 
-				return element.children; 
+				result = element.children; 
 			} else if (element.controls && element.controls.length > 0 ) {
-				return element.controls;	
+				result = element.controls;	
 			}
+		} else {
+			result = this.magicData.getPrograms() as MagicTreeItem[];
 		}
-		return this.magicData.getPrograms() as MagicTreeItem[];		
+
+		if(element){ element.size = result.length;}
+
+		return result;
 	}
 	
 }
