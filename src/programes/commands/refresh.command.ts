@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { programsTreeProvider } from "../programs.commands";
+import { programsTreeProvider } from "../magic.extension";
 
 export function addRefreshTreeCommand(context: vscode.ExtensionContext) {
   let mgptr = vscode.commands.registerCommand('magic.refresh', () => programsTreeProvider.refresh());

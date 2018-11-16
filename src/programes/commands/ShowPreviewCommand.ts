@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { MagicItem } from '../magicTreeItem';
+import { MagicItem } from '../providers/magicTreeItem';
 
 
 export class ShowPreviewCommand {

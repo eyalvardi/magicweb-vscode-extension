@@ -4,7 +4,7 @@ import { MagicData } from "./magic.data";
 import { MagicTreeDataProvider } from './providers/programsTreeDataProvider';
 import { addSearchCommand } from './commands/search.command';
 import { addGenerateAllCommand } from './commands/generateAll.command';
-import { addRefreshTreeCommand } from './commands/refreshcommand';
+import { addRefreshTreeCommand } from './commands/refresh.command';
 import { addGenerateControlCommand } from './commands/generateControl.command';
 import { addOpenComponentHtmlCommand } from './commands/openHtmlCmp.command';
 import { addTextDocProvider } from './providers/textDoc.provider';

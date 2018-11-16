@@ -70,6 +70,11 @@
 
                 },
                 {
+                    "command": "magic.openItemProperties",
+                    "when"   : "inMagicProject"
+
+                },
+                {
                     "command": "magic.generateComponent",
                     "group"  : "magicschematics@1",
                     "when"   : "viewItem == form"
@@ -131,6 +136,10 @@
             {
                 "command": "magic.openComponentHtml",
                 "title": "Open component Html"
+            },
+            {
+                "command": "magic.openItemProperties",
+                "title": "Open Magic item properties"
             }
         ],
         "snippets": [
