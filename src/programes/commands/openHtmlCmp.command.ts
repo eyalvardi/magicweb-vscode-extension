@@ -4,6 +4,10 @@ import { Commands } from "../../schematics/commands";
 import { MagicItem } from "../providers/magicTreeItem";
 
 export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
+  let highlight = vscode.window.createTextEditorDecorationType({ 
+      backgroundColor: 'rgba(200,200,200,.35)',
+      border: '1px solid yellow'
+    });
     const gcc = vscode.commands.registerCommand('magic.openComponentHtml', async (context : MagicItem,...args:any[]) => {
 
       if(!context) return;
@@ -20,18 +24,17 @@ export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
             let editor = vscode.window.activeTextEditor;
             let html = editor.document.getText();
             let pos  = html.indexOf(`magic="${context.name}"`);
-            //let range= `magic=${item.name}`.length;
+           
+                        
             let range:vscode.Range = new vscode.Range(
               editor.document.positionAt(pos),
               editor.document.positionAt(pos+`magic="${context.name}"`.length)
               );
-            //let docPos : vscode.Position = editor.document.positionAt(pos);
             
            let selection = new vscode.Selection(range.start,range.end);           
-           editor.selection = selection; 
-          //  editor.edit((eb)=>{
-          //    eb.
-          //  })          
+           editor.selection = selection;          
+           editor.setDecorations(highlight, [range]);
+           editor.revealRange(range);             
           }
       }
     

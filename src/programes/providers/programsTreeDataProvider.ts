@@ -5,8 +5,8 @@ import { MagicItem } from './magicTreeItem';
 
 export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeItem> {
 
-	private _onDidChangeTreeData   : vscode.EventEmitter<MagicTreeItem | undefined> = new vscode.EventEmitter<MagicTreeItem | undefined>();
-	readonly onDidChangeTreeData   : vscode.Event<MagicTreeItem | undefined>        = this._onDidChangeTreeData.event;
+	private _onDidChangeTreeData   = new vscode.EventEmitter<MagicTreeItem | undefined>();
+	readonly onDidChangeTreeData   = this._onDidChangeTreeData.event;
 
 	constructor(
 			//private workspaceRoot: string | undefined,
@@ -15,9 +15,13 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 			this.refresh();
 		}
 
-	async refresh(): Promise<void> {		
+	async refresh(offset?: number): Promise<void> {		
 		await this.magicData.loadJson();
-		this._onDidChangeTreeData.fire();
+		if (offset) {
+			this._onDidChangeTreeData.fire(offset as any);
+		} else {
+			this._onDidChangeTreeData.fire();
+		}
 	}
 
 	getTreeItem( item: MagicTreeItem ) : vscode.TreeItem {

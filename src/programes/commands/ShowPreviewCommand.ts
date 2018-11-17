@@ -3,8 +3,9 @@ import { MagicItem } from '../providers/magicTreeItem';
 
 
 export class ShowPreviewCommand {
-    command: string = "markdown.showPreview";
-    arguments: any[] = [];
+    command    : string = "markdown.showPreview";
+    arguments  : any[]  = [];
+    languageId : string = "markdown";
     get title(){ return this.item.name; }
 
     constructor(public item: MagicItem) {
