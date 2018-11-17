@@ -24,14 +24,14 @@
         "viewsContainers": {
             "activitybar": [
                 {
-                    "id"   : "magic-explorer",
-                    "title": "",                   
-                    "icon" : "media/magic-logo.svg"
+                    "id": "magic-explorer",
+                    "title": "",
+                    "icon": "media/magic-logo.svg"
                 }
             ]
         },
         "views": {
-            "explorer":[
+            "explorer": [
                 {
                     "id": "programsTree",
                     "name": "Magic programs tree",
@@ -50,7 +50,7 @@
                 {
                     "command": "magic.refresh",
                     "group": "navigation"
-                },                
+                },
                 {
                     "command": "magic.generateAll",
                     "group": "navigation"
@@ -66,28 +66,26 @@
                 },
                 {
                     "command": "magic.searchProgram",
-                    "when"   : "inMagicProject"
-
+                    "when": "inMagicProject"
                 },
                 {
                     "command": "magic.openItemProperties",
-                    "when"   : "inMagicProject"
-
+                    "when": "inMagicProject"
                 },
                 {
                     "command": "magic.generateComponent",
-                    "group"  : "magicschematics@1",
-                    "when"   : "viewItem == form"
+                    "group": "magicschematics@1",
+                    "when": "viewItem == form"
                 },
                 {
                     "command": "magic.generateControl",
-                    "group"  : "magicschematics@1",
-                    "when"   : "viewItem == field"
+                    "group": "magicschematics@1",
+                    "when": "viewItem == field"
                 },
                 {
                     "command": "magic.openComponentHtml",
-                    "group"  : "magicschematics@1",
-                    "when"   : "viewItem == form"
+                    "group": "magicschematics@1",
+                    "when": "viewItem == form"
                 }
             ],
             "explorer/context": [
@@ -120,6 +118,7 @@
             {
                 "command": "magic.refresh",
                 "title": "Refresh Magic tree",
+                "category": "Magic",
                 "icon": {
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
@@ -127,19 +126,38 @@
             },
             {
                 "command": "magic.generateComponent",
-                "title": "Generate a component"
+                "title": "Generate a component",
+                "category": "Magic"
             },
             {
                 "command": "magic.generateControl",
+                "category": "Magic",
                 "title": "Generate a control into component"
             },
             {
                 "command": "magic.openComponentHtml",
+                "category": "Magic",
                 "title": "Open component Html"
             },
             {
                 "command": "magic.openItemProperties",
+                "category": "Magic",
                 "title": "Open Magic item properties"
+            },
+            {
+                "command": "magic.openSetting",
+                "title"  : "MagicWeb Setting",
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            }
+        ],
+        "keybindings":[
+            {
+                "command": "magic.openSetting",
+                "key": "ctrl+m ctrl+g"
             }
         ],
         "snippets": [
@@ -164,7 +182,9 @@
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
+        "@types/ejs": "^2.6.0",
         "@types/json5": "0.0.30",
+        "ejs": "^2.6.1",
         "json5": "^2.1.0"
     }
 }

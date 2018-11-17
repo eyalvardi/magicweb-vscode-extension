@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { ShowPreviewCommand } from '../commands/ShowPreviewCommand';
+import { createOpenCmpHtmlCommand } from '../commands/openHtmlCmp.command';
 
 let counter = 0;
 
@@ -52,7 +53,8 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 						   vscode.TreeItemCollapsibleState.None
 			);
 		super.id = `${counter++}`;
-		this.command = new ShowPreviewCommand(this);
+		this.setCommand();
+		
 	}
 	get tooltip(): string {
 		return `${this.type} - ${this.label}`;
@@ -66,6 +68,26 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 				light: path.join(baseIconPath, 'light', `${icon}.svg`),
 				dark : path.join(baseIconPath, 'dark', `${icon}.svg`)
 		};
+	}
+
+	setCommand() : void {
+		switch (this.type) {
+			case "folder":
+				this.command = new ShowPreviewCommand(this);
+				break;
+		
+			case "form":
+				this.command = createOpenCmpHtmlCommand(this);
+				break;
+
+			case "field":
+				this.command = createOpenCmpHtmlCommand(this);
+				break;
+
+			default:
+				this.command = new ShowPreviewCommand(this);
+				break;
+		}
 	}
 }
 

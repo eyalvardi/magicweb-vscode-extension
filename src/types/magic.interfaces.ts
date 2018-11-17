@@ -25,6 +25,17 @@ interface MagicTreeItem {
 
 }
 
+// declare module '*.ejs' {
+//     const value: string;
+//     export default value
+//   }
+
+  declare module '*!text' {
+    const value: string;
+    export default value
+  }
+
+
 
 
 
