@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { ShowPreviewCommand } from '../commands/ShowPreviewCommand';
 import { createOpenCmpHtmlCommand } from '../commands/openHtmlCmp.command';
+import { TreeItemCollapsibleState } from 'vscode';
 
 let counter = 0;
 
@@ -63,7 +64,12 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 		let icon = this.icon as string;
 		if(this.type === "field" && this.isGenerate){
 			icon = `${icon}-gen`;
+		} else if (this.type === "program" && this.mgTreeItem.isBootstrap) {
+			icon = `${icon}-start`;
+		} else if (this.type === "folder" && this.collapsibleState === TreeItemCollapsibleState.Expanded){
+			icon = `${icon}-open`;
 		}
+
 		return {
 				light: path.join(baseIconPath, 'light', `${icon}.svg`),
 				dark : path.join(baseIconPath, 'dark', `${icon}.svg`)

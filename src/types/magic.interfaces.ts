@@ -22,6 +22,7 @@ interface MagicTreeItem {
     size?       : number;
     component?  : MagicComponentTreeItem,
     controls?   : MagicTreeItem[];
+    isBootstrap?: boolean;
 
 }
 

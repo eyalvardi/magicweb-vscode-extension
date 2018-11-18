@@ -12,7 +12,7 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 			//private workspaceRoot: string | undefined,
 			private magicData:MagicData			
 		) {
-			this.refresh();
+			this.refresh();			
 		}
 
 	async refresh(offset?: number): Promise<void> {		

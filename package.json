@@ -4,6 +4,15 @@
     "description": "test",
     "version": "0.0.1",
     "publisher": "evardi",
+    "icon": "media/magic-logo.svg",
+    "bugs": {
+		"url": "https://github.com/eyalvardi/vscode-MDTools/issues"
+	},
+	"homepage": "https://github.com/eyalvardi/magicweb-vscode-extension/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/eyalvardi/magicweb-vscode-extension.git"
+	},
     "engines": {
         "vscode": "^1.28.0"
     },
@@ -17,7 +26,8 @@
         "onCommand:magic.searchPrograms",
         "onCommand:markdown.showPreview",
         "onView:programsTree",
-        "onLanguage:markdown"
+        "onLanguage:markdown",
+        "*"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -127,12 +137,20 @@
             {
                 "command": "magic.generateComponent",
                 "title": "Generate a component",
-                "category": "Magic"
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/generate.svg",
+                    "dark": "resources/dark/generate.svg"
+                }
             },
             {
                 "command": "magic.generateControl",
                 "category": "Magic",
-                "title": "Generate a control into component"
+                "title": "Generate a control into component",
+                "icon": {
+                    "light": "resources/light/generate.svg",
+                    "dark": "resources/dark/generate.svg"
+                }
             },
             {
                 "command": "magic.openComponentHtml",
