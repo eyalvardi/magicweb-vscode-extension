@@ -1,9 +1,11 @@
 import * as vscode  from 'vscode';
 import * as fs      from 'fs';
+import * as util    from 'util';
 import * as path    from 'path';
 import * as childProcess from 'child_process';
 import * as os      from 'os';
 import * as JSON5   from 'json5';
+
 
 const osList = new Map<string, string>();
 osList.set('darwin', 'osx');
@@ -64,6 +66,16 @@ export class Utils {
     
         });
     
+    }
+
+    static readDirAsync(path:string) : Promise<string[]> {
+        const readDir = util.promisify( fs.readdir);
+        return readDir(path);        
+    }
+
+    static readStatsAsync(path:string) : Promise<fs.Stats> {
+        const readStat = util.promisify( fs.stat);
+        return readStat(path);        
     }
 
     /** @todo Replace with utils.promisify() when Electron / VS Code is updated to Node 8 */

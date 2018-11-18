@@ -25,16 +25,15 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 	}
 
 	getTreeItem( item: MagicTreeItem ) : vscode.TreeItem {
-		// if( item.type === "folder" && item.children && item.children.length === 1){
-		// 	item = item.children[0];
-		// }
-		// if( item.size && item.size > 0){
-		// 	item.name =  `${item.name} (${item.size})`;
-		// }
+		if(!item.name){
+			item.name = (<any>item).props.id;
+			item.type = "field";
+			item.icon = "field";			
+		}
 		return new MagicItem(item);
     }
 
-	getChildren(element?: MagicItem) {
+	async getChildren(element?: MagicItem) {
 		let result:any[] = [];
 		if (element && MagicItem.isChildren(element as MagicTreeItem)){
 			if( element.children && element.children.length > 0){ 
@@ -43,7 +42,7 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 				result = element.controls;	
 			}
 		} else {
-			result = this.magicData.getPrograms() as MagicTreeItem[];
+			result = await this.magicData.tree;
 		}
 
 		if(element){ element.size = result.length;}

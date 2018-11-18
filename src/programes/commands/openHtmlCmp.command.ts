@@ -16,7 +16,7 @@ export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
       if(context.path && context.type === "form"){
 
           const workspaceFolderPath = await Commands.getWorkspaceFolderPath();      
-          const filePath = path.join( workspaceFolderPath , context.path , `${context.name}.component.html`);
+          const filePath = path.join( workspaceFolderPath ,'src/app/magic' ,context.path , `${context.name}.component.html`);
           const document = await vscode.workspace.openTextDocument( filePath );
           await vscode.window.showTextDocument(document);
       }

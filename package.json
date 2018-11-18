@@ -6,13 +6,13 @@
     "publisher": "evardi",
     "icon": "media/magic-logo.png",
     "bugs": {
-		"url": "https://github.com/eyalvardi/vscode-MDTools/issues"
-	},
-	"homepage": "https://github.com/eyalvardi/magicweb-vscode-extension/blob/master/README.md",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/eyalvardi/magicweb-vscode-extension.git"
-	},
+        "url": "https://github.com/eyalvardi/vscode-MDTools/issues"
+    },
+    "homepage": "https://github.com/eyalvardi/magicweb-vscode-extension/blob/master/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/eyalvardi/magicweb-vscode-extension.git"
+    },
     "engines": {
         "vscode": "^1.28.0"
     },
@@ -86,7 +86,7 @@
                     "command": "magic.generateComponent",
                     "group": "magicschematics@1",
                     "when": "viewItem == form"
-                },               
+                },
                 {
                     "command": "magic.openComponentHtml",
                     "group": "magicschematics@1",
@@ -96,7 +96,7 @@
                     "command": "magic.generateControl",
                     "group": "magicschematics@1",
                     "when": "viewItem == field"
-                }                
+                }
             ],
             "explorer/context": [
                 {
@@ -164,7 +164,7 @@
             },
             {
                 "command": "magic.openSetting",
-                "title"  : "MagicWeb Setting",
+                "title": "MagicWeb Setting",
                 "category": "Magic",
                 "icon": {
                     "light": "resources/light/refresh.svg",
@@ -172,7 +172,7 @@
                 }
             }
         ],
-        "keybindings":[
+        "keybindings": [
             {
                 "command": "magic.openSetting",
                 "key": "ctrl+m ctrl+g"
@@ -197,11 +197,11 @@
         "typescript": "^2.6.1",
         "vscode": "^1.1.21",
         "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
+        "@types/mocha": "^2.2.42",
+        "@types/ejs": "^2.6.0",
+        "@types/json5": "0.0.30"
     },
     "dependencies": {
-        "@types/ejs": "^2.6.0",
-        "@types/json5": "0.0.30",
         "ejs": "^2.6.1",
         "json5": "^2.1.0"
     }

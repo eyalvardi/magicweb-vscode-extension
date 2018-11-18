@@ -1,11 +1,8 @@
 import * as vscode  from 'vscode';
 import { Utils } from "../schematics/utils";
 import * as path    from 'path';
-//import * as childProcess from 'child_process';
-//import * as os      from 'os';
+import * as fs      from 'fs';
 import * as JSON5   from 'json5';
-//import fetch from 'node-fetch';
-//import * as res from './programs.json';
 
 export async function fetchPrograms() : Promise<MagicTreeItem[]>{
     const filePath = path.join(vscode.workspace.rootPath || "","magic-metadata/magic.config.json");
@@ -15,6 +12,84 @@ export async function fetchPrograms() : Promise<MagicTreeItem[]>{
     //const json = await res.json();
     return JSON5.parse(str);  
 }
+
+export const MgNames = {
+    metadata        : "magic-metadata",
+    configFile      : "config",
+    serverConfig    : "server-config"
+};
+
+export async function loadMetadata(pathStr:string) : Promise<any>{
+    const dirPath = path.join(vscode.workspace.rootPath || "","magic-metadata");
+    let names     = await Utils.readDirAsync( dirPath );
+    let stats     = await Promise.all( names.map( name => Utils.readStatsAsync(`${dirPath}\\${name}`) ) );
+
+    return readChildren(names,stats,dirPath,0);
+
+}
+
+export async function readFolder( magicType: MagicTypeItem ,folderName : string, folderPath:string,level:number) : Promise<MagicTreeItem>{
+    let names     = await Utils.readDirAsync( folderPath );
+    let stats     = await Promise.all( names.map( name => Utils.readStatsAsync(`${folderPath}\\${name}`) ) );
+
+    return {
+        id   : folderName,
+        type : magicType,
+        icon : magicType,
+        name : folderName,
+        path : folderPath,
+        children : await readChildren(names,stats,folderPath,level++)
+    }
+}
+
+export async function  readChildren(names : string[] ,stats : fs.Stats[],folderPath:string,level:number) : Promise<MagicTreeItem[]>{
+    let result : MagicTreeItem[] = [];
+    for(let i = 0 ; i < stats.length ; i++){
+        let type : fs.Stats = stats[i];
+        let filePath = `${folderPath}\\${names[i]}`;
+        // Magic Folders
+        if( type.isDirectory() && level === 0){
+            if( await isMagicForm(filePath) ) {
+                result.push(await readFolder( "program" ,names[i],filePath,level+1));            
+            }else {
+                result.push(await readFolder( "folder" ,names[i],filePath,level+1));
+            }
+        }
+        // Magic Programs
+        else if( type.isDirectory() && level === 1){
+            result.push(await readFolder( "program" ,names[i],filePath,level+1));
+        } 
+        // Magic Tasks or Forms
+        else if (type.isDirectory() && level > 1){
+           result.push(await readFolder( "task" ,names[i],filePath,level+1));
+                        
+        } else if( !type.isDirectory() && level > 1){
+            result.push(await readForm( filePath,level+1));
+        }
+    }
+
+    return result;
+}
+
+export async function isMagicForm(folderPath:string) : Promise<boolean>{
+    let names = await Utils.readDirAsync( folderPath );
+    return names.filter(n=>n.includes('.json')).length > 1;
+}
+
+export async function readForm( folderPath:string, level:number ) : Promise<MagicTreeItem>{
+    let file = await Utils.readFileAsync( folderPath );
+    let json = JSON.parse(file);
+
+    return {
+        id   :  json.props.id,
+        type : "form",
+        icon : "form",
+        name : json.props.id,
+        path : json.props.component_path,
+        controls : json.children
+    }
+}
+
 
 export class MagicData {
     tree : MagicTreeItem [] = [];
@@ -37,9 +112,11 @@ export class MagicData {
         return result;
     }
 
-    async loadJson(){
-      const json = await fetchPrograms();
-      this.proccessJson(json);
+    async loadJson() : Promise<MagicTreeItem[]> {
+      this.tree = await loadMetadata('');
+      return this.tree;  
+      //const json = await fetchPrograms();
+      //this.proccessJson(json);
     }
 
     proccessJson(json:MagicTreeItem[]) {
