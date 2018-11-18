@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Commands } from "../../schematics/commands";
+import { Commands } from "../../../schematics/commands";
 
 export function addGenerateAllCommand(context: vscode.ExtensionContext) {
   // Generate All Magic Components

@@ -3,12 +3,13 @@ import * as vscode from 'vscode';
 import { MagicData } from "./magic.data";
 import { MagicTreeDataProvider } from './providers/programsTreeDataProvider';
 import { addSearchCommand } from './commands/search.command';
-import { addGenerateAllCommand } from './commands/generateAll.command';
+import { addGenerateAllCommand } from './commands/generate/generateAll.command';
 import { addRefreshTreeCommand } from './commands/refresh.command';
-import { addGenerateControlCommand } from './commands/generateControl.command';
+import { addGenerateComponentCommand } from './commands/generate/generateComponent.command';
 import { addOpenComponentHtmlCommand } from './commands/openHtmlCmp.command';
 import { addTextDocProvider } from './providers/textDoc.provider';
 import { addMagicItemWebView } from './webViews/item.webview';
+import { addGenerateControlCommand } from './commands/generate/generateControl.command';
 
 export const magicData = new MagicData();
 export const programsTreeProvider = new MagicTreeDataProvider( magicData );
@@ -31,6 +32,7 @@ export function activateMagic(context: vscode.ExtensionContext) {
     
     // Generate commands
     addGenerateAllCommand(context);
+    addGenerateComponentCommand(context);
     addGenerateControlCommand(context);
 
     // Providers

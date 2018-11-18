@@ -15,10 +15,10 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 			this.refresh();			
 		}
 
-	async refresh(offset?: number): Promise<void> {		
+	async refresh(magicTreeItem?: MagicTreeItem): Promise<void> {		
 		await this.magicData.loadJson();
-		if (offset) {
-			this._onDidChangeTreeData.fire(offset as any);
+		if (magicTreeItem) {
+			this._onDidChangeTreeData.fire(magicTreeItem);
 		} else {
 			this._onDidChangeTreeData.fire();
 		}

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import * as path from 'path';
 import { Commands } from "../../schematics/commands";
 import { MagicItem } from "../providers/magicTreeItem";
+import { programsTreeProvider } from "../magic.extension";
 
 export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
   let highlight = vscode.window.createTextEditorDecorationType({ 
@@ -25,16 +26,21 @@ export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
             let html = editor.document.getText();
             let pos  = html.indexOf(`magic="${context.name}"`);
            
-                        
-            let range:vscode.Range = new vscode.Range(
-              editor.document.positionAt(pos),
-              editor.document.positionAt(pos+`magic="${context.name}"`.length)
-              );
-            
-           let selection = new vscode.Selection(range.start,range.end);           
-           editor.selection = selection;          
-           editor.setDecorations(highlight, [range]);
-           editor.revealRange(range);             
+            if(pos === -1) {
+                vscode.window.showErrorMessage(`The control: ${context.name} not in the HTML file.`);
+                context.mgTreeItem.isGenerate = false;
+                programsTreeProvider.refresh(context);
+            } else {                      
+                let range:vscode.Range = new vscode.Range(
+                  editor.document.positionAt(pos),
+                  editor.document.positionAt(pos+`magic="${context.name}"`.length)
+                  );
+                
+              let selection = new vscode.Selection(range.start,range.end);           
+              editor.selection = selection;          
+              editor.setDecorations(highlight, [range]);
+              editor.revealRange(range);  
+            }           
           }
       }
     

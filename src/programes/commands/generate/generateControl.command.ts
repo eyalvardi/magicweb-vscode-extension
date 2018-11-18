@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
 import * as path from 'path';
-import { Commands } from "../../schematics/commands";
+import { Commands } from "../../../schematics/commands";
 
 export function addGenerateControlCommand(context: vscode.ExtensionContext) {
-  const gcc = vscode.commands.registerCommand('magic.generateComponent', async (context) => {
+  const gcc = vscode.commands.registerCommand('magic.generateControl', async (context) => {
 
     const workspaceFolderPath = await Commands.getWorkspaceFolderPath();
-    const schematicsCommand = `ng g @magic-xpa/cli:magic --component=${context.name}`;
+    const schematicsCommand = `ng g @magic-xpa/cli:single-control --component=${context.name}`;
     await Commands.launchCommand(
         schematicsCommand,
         workspaceFolderPath,

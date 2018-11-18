@@ -4,7 +4,7 @@
     "description": "test",
     "version": "0.0.1",
     "publisher": "evardi",
-    "icon": "media/magic-logo.svg",
+    "icon": "media/magic-logo.png",
     "bugs": {
 		"url": "https://github.com/eyalvardi/vscode-MDTools/issues"
 	},
@@ -86,17 +86,17 @@
                     "command": "magic.generateComponent",
                     "group": "magicschematics@1",
                     "when": "viewItem == form"
+                },               
+                {
+                    "command": "magic.openComponentHtml",
+                    "group": "magicschematics@1",
+                    "when": "viewItem == form"
                 },
                 {
                     "command": "magic.generateControl",
                     "group": "magicschematics@1",
                     "when": "viewItem == field"
-                },
-                {
-                    "command": "magic.openComponentHtml",
-                    "group": "magicschematics@1",
-                    "when": "viewItem == form"
-                }
+                }                
             ],
             "explorer/context": [
                 {
