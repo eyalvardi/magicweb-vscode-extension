@@ -78,6 +78,11 @@ export class Utils {
         return readStat(path);        
     }
 
+    static exists(path:string) : Promise<boolean> {
+        const exists = util.promisify( fs.exists);
+        return exists(path);        
+    }
+
     /** @todo Replace with utils.promisify() when Electron / VS Code is updated to Node 8 */
     static existsAsync(path: string): Promise<boolean> {
 

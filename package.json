@@ -1,8 +1,8 @@
 {
     "name": "magicweb-vscode-extenstion",
     "displayName": "MagicWeb VSCode Extension",
-    "description": "test",
-    "version": "0.0.1",
+    "description": "MagicWeb VSCode Extension for generate Angular components form MagicWeb code.",
+    "version": "0.0.2",
     "publisher": "evardi",
     "icon": "media/magic-logo.png",
     "bugs": {
@@ -58,7 +58,7 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "magic.refresh",
+                    "command": "magic.refreshTree",
                     "group": "navigation"
                 },
                 {
@@ -126,8 +126,17 @@
                 }
             },
             {
-                "command": "magic.refresh",
+                "command": "magic.refreshTree",
                 "title": "Refresh Magic tree",
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "magic.refreshMetadata",
+                "title": "Refresh Magic Metadata",
                 "category": "Magic",
                 "icon": {
                     "light": "resources/light/refresh.svg",
@@ -196,6 +205,7 @@
     "devDependencies": {
         "typescript": "^2.6.1",
         "vscode": "^1.1.21",
+        "@angular/cli": "^7.0.6",
         "@types/node": "^8.10.25",
         "@types/mocha": "^2.2.42",
         "@types/ejs": "^2.6.0",

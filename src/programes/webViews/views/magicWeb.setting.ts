@@ -1,4 +1,5 @@
 import * as ejs from 'ejs';
+import { env } from '../../magic.extension';
 
 export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
     const html = ejs.render( `
@@ -15,20 +16,15 @@ export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        Metadata path:
-                    </div>
-                    <div class="col">
-                        <input type="file">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        magicweb.config.json path:
-                    </div>
-                    <div>
-                        <input type="file">
-                    </div>
-                </div>
+                        <button id="refresh">Search for magic metadata folders</button><br>
+                        Metadata paths:
+                        <ul>
+                          <% env.magicMetadataPaths.forEach( path => { %>
+                            <li><%= path %></li>
+                          <% })%>  
+                        </ul>
+                    </div>                    
+                </div>                
             </div>
             <h2>Components Status</h2>
             <table class="table">
@@ -52,18 +48,27 @@ export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                  </tr>                  
                 </tbody>
               </table>
         </body>
+        <script>
+        (function() {
+            const vscode = acquireVsCodeApi();
+            const btn = document.getElementById('refresh');
+            btn.addEventListener('click',()=>{
+                vscode.postMessage({
+                        command: 'magic.refreshMetadata',
+                        text   : 'Search for magic metadata folders' 
+                });  
+            });
+        }());
+    </script>
         </html>
-        `, {vm:magicItem});
+        `, {
+            vm  : magicItem,
+            env : env
+        });
 
         return html;
     

@@ -31,7 +31,14 @@ export function addMagicItemWebView(context: vscode.ExtensionContext) {
                             vscode.ViewColumn.One,
                             { }                   
                     
-                      );       
+                      );
+                      
+                    // Handle messages from the webview
+                    panel.webview.onDidReceiveMessage( message => {
+                        vscode.window.showInformationMessage(message.text);  
+                        vscode.commands.executeCommand(message.command);
+                    }, undefined, context.subscriptions);
+
                     // And set its HTML content
                     panel.webview.html = getView('magicWeb.setting',args[0]); 
       

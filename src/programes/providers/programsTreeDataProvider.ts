@@ -15,7 +15,7 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 			this.refresh();			
 		}
 
-	async refresh(magicTreeItem?: MagicTreeItem): Promise<void> {		
+	async refresh(magicTreeItem?: MagicTreeItem): Promise<void> {				
 		await this.magicData.loadJson();
 		if (magicTreeItem) {
 			this._onDidChangeTreeData.fire(magicTreeItem);

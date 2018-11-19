@@ -113,7 +113,12 @@ export class MagicData {
     }
 
     async loadJson() : Promise<MagicTreeItem[]> {
-      this.tree = await loadMetadata('');
+        try {
+            this.tree = await loadMetadata('');
+        } catch (error) {
+            this.tree = [];
+        }
+      
       return this.tree;  
       //const json = await fetchPrograms();
       //this.proccessJson(json);
