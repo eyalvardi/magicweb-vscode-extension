@@ -104,7 +104,11 @@
                     "group": "magicschematics@1",
                     "when": "inMagicProject"
                 }
+            ],
+            "editor/title": [
+               
             ]
+            
         },
         "commands": [
             {
