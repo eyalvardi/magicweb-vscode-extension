@@ -102,6 +102,7 @@ function addMetadataToItem(project:string,path:string,cmp:string,children: any[]
         element.project   = project;
         element.path      = path;
         element.component = cmp;
+        element.icon      = `controls/${element.controlType}`;
         addMetadataToItem(project,path,cmp, element.children);
         
     }
