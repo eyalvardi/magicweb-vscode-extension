@@ -16,7 +16,7 @@
     "prefix" : "mg-select",
     "body"   : [
         "<select magic=\"${1:magic}\"",
-        "\t(change)=\"mg.onSelectionChanged($event,'${1:magic}')\"",
+        "\t(change)=\"mg.onSelectionChanged(\\$event,'${1:magic}')\"",
         "\tvalue   =\"mg.getSelectedValue('${1:magic}')\">",
         "\t<option",
         "\t\t*ngFor=\"let o of mg.getItemListValues('${1:magic}');\"",
