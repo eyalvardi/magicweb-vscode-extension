@@ -6,7 +6,7 @@ export function addGenerateControlCommand(context: vscode.ExtensionContext) {
   const gcc = vscode.commands.registerCommand('magic.generateControl', async (context) => {
 
     const workspaceFolderPath = await Commands.getWorkspaceFolderPath();
-    const schematicsCommand = `ng g @magic-xpa/cli:single-control --component=${context.name}`;
+    const schematicsCommand = `ng g @magic-xpa/cli:single-control --component=${context.path}${context.component} --project=${context.project}`;
     await Commands.launchCommand(
         schematicsCommand,
         workspaceFolderPath,

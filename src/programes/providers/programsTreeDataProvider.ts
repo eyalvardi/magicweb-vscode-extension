@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-//import * as path from 'path';
-import { MagicData } from '../magic.data';
 import { MagicItem } from './magicTreeItem';
+import { MagicEnv } from '../../env';
+import { MagicData } from '../magic.data';
 
 export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeItem> {
 
@@ -10,13 +10,13 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 
 	constructor(
 			//private workspaceRoot: string | undefined,
-			private magicData:MagicData			
+			private magicEnv: MagicEnv
 		) {
 			this.refresh();			
 		}
 
-	async refresh(magicTreeItem?: MagicTreeItem): Promise<void> {				
-		await this.magicData.loadJson();
+	refresh(magicTreeItem?: MagicTreeItem): void {				
+		//await this.magicEnv.refresh();
 		if (magicTreeItem) {
 			this._onDidChangeTreeData.fire(magicTreeItem);
 		} else {
@@ -25,29 +25,63 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 	}
 
 	getTreeItem( item: MagicTreeItem ) : vscode.TreeItem {
-		if(!item.name){
-			item.name = (<any>item).props.id;
-			item.type = "field";
-			item.icon = "field";			
+		if(item instanceof MagicData){
+			return new MagicItem({
+					id 		 : "",
+					type	 : "folder",
+					icon     : "rootFolder",
+					name 	 : item.projectName,
+					children : item.tree,
+					project  : item.projectName
+				});
+
+		} else if(!item.name){
+			if((<any>item).props){	// Field Item
+				item.name = (<any>item).props.id;
+				item.type = "field";
+				item.icon = "field";
+			};						
 		}
 		return new MagicItem(item);
     }
 
-	async getChildren(element?: MagicItem) {
+	async getChildren(element?: MagicItem ) {
 		let result:any[] = [];
-		if (element && MagicItem.isChildren(element as MagicTreeItem)){
-			if( element.children && element.children.length > 0){ 
-				result = element.children; 
-			} else if (element.controls && element.controls.length > 0 ) {
-				result = element.controls;	
-			}
-		} else {
-			result = await this.magicData.tree;
+		if(element instanceof MagicItem){
+			if (element && MagicItem.isChildren(element as MagicTreeItem)){
+				if( element.children && element.children.length > 0){ 
+					result = element.children; 
+				} else if (element.controls && element.controls.length > 0 ) {
+					result = element.controls;	
+				}
+			} 
+		}
+		else if( element && (element as any) instanceof MagicData){			
+			result = (<MagicData><any>element).tree;
+		}
+		else if(element && (element as any).children){
+			result = (<any>element).children;
+		}
+		else if(element && (element as any).type === "form" && (element as any).controls){
+			result = (<any>element).controls;
+		}
+		else {
+			result = this.getMagicProjects();
 		}
 
-		if(element){ element.size = result.length;}
+		if(element){ (<any>element).size = result.length;}
 
 		return result;
+	}
+
+	getMagicProjects() : MagicData[] {
+		const projects = Array.from( this.magicEnv.projects.values() );
+
+		const mgProject = projects.map( prj => prj.magic);
+						   
+		const magicWithMetadata = mgProject.filter( mgp => mgp.isMagicProject ) as MagicData[];
+
+		return magicWithMetadata;
 	}
 	
 }

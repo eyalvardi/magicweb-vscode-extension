@@ -6,7 +6,7 @@ export function addGenerateComponentCommand(context: vscode.ExtensionContext) {
   const gcc = vscode.commands.registerCommand('magic.generateComponent', async (context) => {
 
     const workspaceFolderPath = await Commands.getWorkspaceFolderPath();
-    const schematicsCommand = `ng g @magic-xpa/cli:magic --component=${context.name}`;
+    const schematicsCommand = `ng g @magic-xpa/cli:magic --component=${context.path}${context.name} --project=${context.project}`;
     await Commands.launchCommand(
         schematicsCommand,
         workspaceFolderPath,

@@ -6,6 +6,13 @@ import { TreeItemCollapsibleState } from 'vscode';
 
 let counter = 0;
 
+export function setProjectToItems(project:string,items:any[]) : any[] {
+	return items.map( item => {
+		item.project = project;
+		return item;
+	} )
+}
+
 export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 
 	size? : number; 
@@ -19,7 +26,7 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 	get name(): string{
 		return this.mgTreeItem.name;
 	}
-	get icon(): MagicTypeItem{
+	get icon(): string{
 		return this.mgTreeItem.icon || "folder";
 	}
 	get path(): string{
@@ -40,6 +47,7 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 	get contextValue(){
 		return this.mgTreeItem.type;
 	}
+	get project(){ return this.mgTreeItem.project; }
 
 	static isChildren(item: MagicTreeItem){
 		return ( item.children && item.children.length > 0 ) || 

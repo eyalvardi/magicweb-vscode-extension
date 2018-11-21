@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 
-import { MagicData } from "./magic.data";
 import { MagicTreeDataProvider } from './providers/programsTreeDataProvider';
 import { addSearchCommand } from './commands/search.command';
 import { addGenerateAllCommand } from './commands/generate/generateAll.command';
@@ -11,21 +10,26 @@ import { addTextDocProvider } from './providers/textDoc.provider';
 import { addMagicItemWebView } from './webViews/item.webview';
 import { addGenerateControlCommand } from './commands/generate/generateControl.command';
 import { MagicEnv } from '../env';
+import { GenerateCli } from './commands/generate/generate';
 
 export const env = new MagicEnv();
+export let genCli : GenerateCli;
 
-
-export const magicData = new MagicData();
-export const programsTreeProvider = new MagicTreeDataProvider( magicData );
+//export const magicData = new MagicData();
+export const programsTreeProvider = new MagicTreeDataProvider(env);
 export const magicTreeView = vscode.window.createTreeView<MagicTreeItem>("programsTree",{
                                     treeDataProvider : programsTreeProvider
                                 });
 
+
+
 export async function initMagicExtension(context: vscode.ExtensionContext) : Promise<void>{
     try{
         await env.loadAngularWorkspace();
-        if(env.magicProjects.size > 0 ){
+        await env.loadMagicMetadata();
+        if(env.projects.size > 0 ){
             vscode.commands.executeCommand('setContext', 'inMagicProject', true);
+            genCli = new GenerateCli(context);
             activateMagic(context);
         } else {
             vscode.commands.executeCommand('setContext', 'inMagicProject', false);

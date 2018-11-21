@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
-import { Commands } from "../../../schematics/commands";
-import { env } from "../../magic.extension";
+import { env, genCli } from "../../magic.extension";
 
 export function addGenerateAllCommand(context: vscode.ExtensionContext) {
   // Generate All Magic Components
@@ -8,7 +7,7 @@ export function addGenerateAllCommand(context: vscode.ExtensionContext) {
     "magic.generateAll",
 
     async (context) => {
-      const magicPrj = Array.from( env.magicProjects.keys() );
+      const magicPrj = Array.from( env.projects.keys() );
       const qp = vscode.window.createQuickPick();
       qp.items = magicPrj.map( item => ({ label : item, item  : item }));
       qp.placeholder = "Select the project to generate";
@@ -26,15 +25,19 @@ export function addGenerateAllCommand(context: vscode.ExtensionContext) {
       });
       qp.onDidAccept(async () => {
           const item = (<any>qp.selectedItems[0]).item;
-          const workspaceFolderPath = await Commands.getWorkspaceFolderPath(
-            Commands.getContextPath(context)
-          );
-          await Commands.launchCommand(
-            `ng g @magic-xpa/cli:magic --project=${item}`,
-            workspaceFolderPath,
-            "magic",
-            ""
-          );
+
+         await genCli.init(context);
+         await genCli.generate({project: item})
+
+          // const workspaceFolderPath = await Commands.getWorkspaceFolderPath(
+          //   Commands.getContextPath(context)
+          // );
+          // await Commands.launchCommand(
+          //   `ng g @magic-xpa/cli:magic --project=${item}`,
+          //   workspaceFolderPath,
+          //   "magic",
+          //   ""
+          // );
       })
       qp.show();
 }

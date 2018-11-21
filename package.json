@@ -2,9 +2,9 @@
     "name": "magicweb-vscode-extenstion",
     "displayName": "MagicWeb VSCode Extension",
     "description": "MagicWeb VSCode Extension for generate Angular components form MagicWeb code.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "evardi",
-    "icon": "media/magic-logo.png",
+    "icon": "media/magicWebLogo.png",
     "bugs": {
         "url": "https://github.com/eyalvardi/vscode-MDTools/issues"
     },
@@ -34,9 +34,9 @@
         "viewsContainers": {
             "activitybar": [
                 {
-                    "id": "magic-explorer",
-                    "title": "",
-                    "icon": "media/magic-logo.svg"
+                    "id"   : "magic-explorer",
+                    "title": "MagicWeb",
+                    "icon" : "media/dep.png"
                 }
             ]
         },

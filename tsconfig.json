@@ -8,6 +8,10 @@
         ],
         "sourceMap": true,
         "rootDir": "src",
+        "typeRoots": [
+            "node_modules/@types",
+            "src/types"
+          ],
         /* Strict Type-Checking Option */
         "strict": true,   /* enable all strict type-checking options */
         /* Additional Checks */

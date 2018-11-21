@@ -1,16 +1,1 @@
-<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
- <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
-
- <g>
-  <title>background</title>
-  <rect x="-1" y="-1" width="582" height="402" id="canvas_background" fill="#fff"/>
-  <g id="canvasGrid" display="none">
-   <rect id="svg_3" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
-  </g>
- </g>
- <g>
-  <title>Layer 1</title>
-  <rect fill="#000" stroke="#fff" stroke-width="1.5" x="7.5" y="9.770833" width="563" height="382" id="svg_1"/>
-  <text fill="#fff" stroke-width="0" x="167.731095" y="178.802028" id="svg_2" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(12.570342063903809,0,0,10.763954103367155,-2038.6520676612854,-1632.4862367998348) " stroke="#000">FM</text>
- </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>file_type_angular</title><polygon points="16 2 16 2 16 2 2.966 6.648 4.954 23.882 16 30 16 30 16 30 27.046 23.882 29.034 6.648 16 2" style="fill:#dd0031"/><polygon points="16 2 16 5.108 16 5.094 16 19.276 16 19.276 16 30 16 30 27.046 23.882 29.034 6.648 16 2" style="fill:#c3002f"/><path d="M16,5.094,7.852,23.364H10.89l1.638-4.088h6.916l1.638,4.088H24.12L16,5.094Zm2.38,11.662H13.62L16,11.03Z" style="fill:#fff"/></svg>

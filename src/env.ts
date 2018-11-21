@@ -2,9 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { Utils } from "./schematics/utils";
 import { Commands } from './schematics/commands';
-
-
-
+import { MagicData } from './programes/magic.data';
 
 export function getAngularWorkspace(){
 
@@ -35,16 +33,15 @@ export async function getWorkspaceFolderPath(path = ''): Promise<string> {
     return workspaceFolder ? workspaceFolder.uri.fsPath : '';
 }
 
-
 export class MagicEnv {
-
-    ngrWorkspace : any;
-    vsWorkspace  : any;
-
-    magicProjects = new Map< string , any >();
+    rootPath            : string = "";
+    parentFolderName    : string = "";
+    ngrWorkspace        : any;
+    vsWorkspace         : any;
+    projects = new Map< string , { magic : MagicData, angular : NgProject }>();
 
     isMagicProject(name:string) : boolean {
-        return this.magicProjects.has(name);
+        return this.projects.has(name);
     }
 
     isAngularWorkspace(){
@@ -52,8 +49,8 @@ export class MagicEnv {
     }
 
     get magicMetadataPaths() : string []{
-        if( this.magicProjects.size === 0 ) return [];
-        return Array.from(this.magicProjects.values()).map( prj => prj.root || 'root folder' );
+        if( this.projects.size === 0 ) return [];
+        return Array.from(this.projects.values()).map( prj => prj.angular.root || 'root folder' );
     }
 
     async loadAngularWorkspace() : Promise<void> {
@@ -66,16 +63,40 @@ export class MagicEnv {
 
         const prjNames = Object.keys(projects);
 
-        this.magicProjects.clear();
+        this.projects.clear();
 
         for (let i = 0; i < prjNames.length; i++) {
-            const result = await isMagicProject(projects[prjNames[i]]);
+            const projectName = prjNames[i];
+            const result = await isMagicProject(projects[projectName]);
             if( result ){
-                let prj = projects[prjNames[i]];
+                let prj = projects[projectName];
                 prj.name= prjNames[i];
-                this.magicProjects.set(prjNames[i], projects[prjNames[i]] );
+                this.projects.set(projectName, {
+                    angular : projects[projectName],
+                    magic   : new MagicData(projectName)
+                } );
             }            
         }        
+    }
+
+    async loadMagicMetadata(project?:string) {
+        if(project && this.projects.has(project)){
+            const prj =  this.projects.get(project);
+            if(!prj) return;  
+            await prj.magic.loadJson(prj.angular.root);
+
+        }else{
+            const promises = [];
+            for(let prj of this.projects.values()){
+                promises.push( prj.magic.loadJson(prj.angular.root) );
+            }
+            await Promise.all(promises);
+        }
+    }
+
+    async refresh() : Promise<void>{
+        await this.loadAngularWorkspace();
+        await this.loadMagicMetadata();
     }
 }
 
