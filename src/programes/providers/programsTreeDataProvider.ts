@@ -35,10 +35,8 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 					project  : item.projectName
 				});
 
-		} else if(!item.name){
-			if((<any>item).props){	// Field Item
-				item.name = (<any>item).props.id;
-				item.type = "field";
+		} else if(item.type === "field"){
+			if((<any>item).props){	// Field Item			
 				item.icon = item.icon || "field";
 			};						
 		}

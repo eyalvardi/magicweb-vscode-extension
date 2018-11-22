@@ -15,7 +15,8 @@ export function setProjectToItems(project:string,items:any[]) : any[] {
 
 export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 
-	size? : number; 
+	size? : number;
+	controlsList: string [] = []; 
 
 	get id() : string {
 		return super.id || "-1";
@@ -63,6 +64,10 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 			);
 		super.id = `${counter++}`;
 		this.setCommand();
+
+		if(this.type === "form") {
+			this.buildControlsList(this.controls,this.controlsList);
+		}
 		
 	}
 	get tooltip(): string {
@@ -102,6 +107,16 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 				this.command = new ShowPreviewCommand(this);
 				break;
 		}
+	}
+
+	buildControlsList( items:MagicTreeItem[] , controls:string[]) : void {
+		
+		if(items.length === 0) return;
+
+		items.forEach( element => {
+			controls.push( element.name );
+			this.buildControlsList( element.children || [], controls )
+		});
 	}
 }
 

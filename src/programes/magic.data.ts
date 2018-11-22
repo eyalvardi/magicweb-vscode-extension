@@ -81,6 +81,7 @@ export async function isMagicForm(folderPath:string) : Promise<boolean>{
 export async function readForm( folderPath:string, level:number,project:string ) : Promise<MagicTreeItem>{
     let file = await Utils.readFileAsync( folderPath );
     let json = JSON.parse(file);
+
     addMetadataToItem(project,json.props.component_path,json.props.id,json.children);
 
     return new MagicItem( {
@@ -102,6 +103,8 @@ function addMetadataToItem(project:string,path:string,cmp:string,children: any[]
         element.project   = project;
         element.path      = path;
         element.component = cmp;
+        element.name      = element.props.id;
+        element.type      = "field";
         element.icon      = `controls/${element.controlType}`;
         addMetadataToItem(project,path,cmp, element.children);
         
@@ -118,7 +121,7 @@ export class MagicData {
     folders     = new Map<number | string ,MagicTreeItem>();
     programs    = new Map<number | string ,MagicTreeItem>();
     tasks       = new Map<number | string ,MagicTreeItem>();
-    forms       = new Map<number | string ,MagicTreeItem>();
+    forms       = new Map<string ,MagicTreeItem>();
 
     constructor( projectName:string , json:MagicTreeItem[] = [] ) {
         this.projectName = projectName;
@@ -143,6 +146,7 @@ export class MagicData {
         }     
      
         this.isMagicProject = this.tree.length === 0 ? false : true;
+        this.proccessJson(this.tree);
         return this;  
     }
 
@@ -159,7 +163,7 @@ export class MagicData {
                     this.tasks.set(item.name,item);
                     break;
                 case "form":
-                    this.forms.set(item.name,item);
+                    this.forms.set(`${item.path}${item.name}`,item);
                     break;
             }
             if(item.children && item.children.length > 0){
