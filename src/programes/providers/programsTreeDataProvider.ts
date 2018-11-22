@@ -67,9 +67,20 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 			result = this.getMagicProjects();
 		}
 
-		if(element){ (<any>element).size = result.length;}
+		if(element){ 
+			
+			(<any>element).size = result.length;
+
+			result.forEach( item => {
+				item.parent = element;
+			})
+		}
 
 		return result;
+	}
+
+	getParent(element: MagicTreeItem): MagicTreeItem{
+		return element.parent as MagicTreeItem;
 	}
 
 	getMagicProjects() : MagicData[] {

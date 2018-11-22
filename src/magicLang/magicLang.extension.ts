@@ -1,5 +1,5 @@
-import { TextDocument, Position, CancellationToken, Hover, DocumentFilter, HoverProvider, ExtensionContext, languages, CompletionContext, ProviderResult, CompletionItem, CompletionList, CompletionItemProvider, Diagnostic, Uri, Range, Memento, DiagnosticCollection } from 'vscode';
-import { env } from '../programes/magic.extension';
+import { TextDocument, Position, CancellationToken, Hover, DocumentFilter, HoverProvider, ExtensionContext, languages, CompletionContext, ProviderResult, CompletionItem, CompletionList, CompletionItemProvider, Diagnostic, Uri, Range, Memento, DiagnosticCollection, TextEditor, window } from 'vscode';
+import { env, magicTreeView } from '../programes/magic.extension';
 import { MagicItem } from '../programes/providers/magicTreeItem';
 
 const MAGIC_MODE: DocumentFilter = { language: "html", scheme: 'file' /* , pattern: '*.mg.html' */ };
@@ -44,7 +44,7 @@ class MagicCompletionItemProvider implements CompletionItemProvider {
 
 let diagnosticCollection: DiagnosticCollection;
 
-export function magiclanguageActivate(ctx: ExtensionContext): void {    
+export function magicLanguageActivate(ctx: ExtensionContext): void {    
 
     // Completion
     ctx.subscriptions.push(
@@ -58,6 +58,15 @@ export function magiclanguageActivate(ctx: ExtensionContext): void {
         ) 
     );
     
+    window.onDidChangeActiveTextEditor( e => {
+        //arg.document.fileName
+        if(!e) return;
+        const mgForm = getMagicFormByPath(e.document.fileName);
+        magicTreeView.reveal(mgForm);
+
+    })
+
+
     // Diagnostic
     //diagnosticCollection = languages.createDiagnosticCollection('magic');
     //ctx.subscriptions.push(diagnosticCollection);
@@ -67,7 +76,7 @@ export function magiclanguageActivate(ctx: ExtensionContext): void {
 function getMagicFormByPath(path:string) : MagicItem {
      //TODO : REGX
      let indexMagic = path.indexOf('\\src\\app\\magic\\');
-     let leftPath   = path.substring(indexMagic,path.length - '.component.mg.html'.length);
+     let leftPath   = path.substring(indexMagic,path.length - '.component.html'.length);
      let folderPath = leftPath.substring('\\src\\app\\magic\\'.length);
  
      folderPath = folderPath.replace(/\\/g,'/');

@@ -34,7 +34,8 @@ interface MagicTreeItem {
     component?  : MagicComponentTreeItem,
     controls?   : MagicTreeItem[];
     isBootstrap?: boolean;
-    project?    : string     
+    project?    : string;
+    parent?     : MagicTreeItem;     
 
 }
 
