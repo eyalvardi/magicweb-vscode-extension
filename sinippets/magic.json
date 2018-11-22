@@ -27,6 +27,11 @@
         "</select>"
     ],
     "description" : "Create HTML sinippet of Magic select"
+} ,
+"magic attribute": {
+    "prefix" : "magic",
+    "body"   : ["magic=\"$0\""],
+    "description" : "Magic attribute for binding"
 } 
 
 }
