@@ -96,6 +96,11 @@
                     "when": "viewItem == form"
                 },
                 {
+                    "command": "magic.checkHtmlErrors",
+                    "group": "magicschematics@2",
+                    "when": "viewItem == form"
+                },
+                {
                     "command": "magic.generateControl",
                     "group": "magicschematics@1",
                     "when": "viewItem == field"
@@ -181,6 +186,15 @@
             {
                 "command": "magic.openSetting",
                 "title": "MagicWeb Setting",
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "magic.checkHtmlErrors",
+                "title": "Check  controls names spelling",
                 "category": "Magic",
                 "icon": {
                     "light": "resources/light/refresh.svg",

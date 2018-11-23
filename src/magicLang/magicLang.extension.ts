@@ -1,9 +1,17 @@
-import { TextDocument, Position, CancellationToken, Hover, DocumentFilter, HoverProvider, ExtensionContext, languages, CompletionContext, ProviderResult, CompletionItem, CompletionList, CompletionItemProvider, Diagnostic, Uri, Range, Memento, DiagnosticCollection, TextEditor, window } from 'vscode';
+import { 
+    TextDocument, 
+    Position, 
+    CancellationToken,    
+    ExtensionContext, 
+    languages, 
+    CompletionItem, 
+    CompletionItemProvider, 
+    Memento, 
+    window, 
+    CompletionItemKind
+} from 'vscode';
 import { env, magicTreeView } from '../programes/magic.extension';
 import { MagicItem } from '../programes/providers/magicTreeItem';
-
-const MAGIC_MODE: DocumentFilter = { language: "html", scheme: 'file' /* , pattern: '*.mg.html' */ };
-
 
 class MagicCompletionItemProvider implements CompletionItemProvider {
 
@@ -25,11 +33,10 @@ class MagicCompletionItemProvider implements CompletionItemProvider {
                 const controls = getControlsFromPath(document.fileName,context);
 
                 result = controls.map( name => {
-                    var item:CompletionItem = new CompletionItem("id");
+                    var item:CompletionItem = new CompletionItem(name,CompletionItemKind.Value);
                     item.detail = `control name ${name}`;                
                     item.filterText = name;
                     item.insertText = name;
-                    item.label      = name;
                     return item;
                 });
             
@@ -42,9 +49,7 @@ class MagicCompletionItemProvider implements CompletionItemProvider {
     }
 }
 
-let diagnosticCollection: DiagnosticCollection;
-
-export function magicLanguageActivate(ctx: ExtensionContext): void {    
+export function magicCompletionInHtmlActivate(ctx: ExtensionContext): void {    
 
     // Completion
     ctx.subscriptions.push(
@@ -88,7 +93,7 @@ function getMagicFormByPath(path:string) : MagicItem {
  
      return formsMaps.map( f => f.get(folderPath) )[0] as MagicItem; 
 }
-function getControlsFromPath(path:string,context  : any) : string[] {
+export function getControlsFromPath(path:string,context  : any) : string[] {
     let result : string[]  = [];    
 
     let formsMagicData = getMagicFormByPath(path);
@@ -100,37 +105,3 @@ function getControlsFromPath(path:string,context  : any) : string[] {
     return result;
 
 }
-
-function checkMagicHtml(path:string) {
-
-}
-
-
-// export function getDisposable(){}
-
-// function onChange() {
-//     let uri = document.uri;
-
-//     check(uri.fsPath, goConfig).then(
-//         errors => {
-
-//       diagnosticCollection.clear();
-
-//       let diagnosticMap = new Map<string, Diagnostic[]>();
-//       errors.forEach( (error:any) => {
-        
-//         let canonicalFile = Uri.file(error.file).toString();
-//         let range = new Range(error.line-1, error.startColumn, error.line-1, error.endColumn);
-//         let diagnostics = diagnosticMap.get(canonicalFile);
-        
-//         if (!diagnostics) { diagnostics = []; }
-        
-//         diagnostics.push(new Diagnostic(range, error.msg, error.severity));
-//         diagnosticMap.set(canonicalFile, diagnostics);
-//       });
-//       diagnosticMap.forEach((diags, file) => {
-//         diagnosticCollection.set(Uri.parse(file), diags);
-//       });
-
-//     });
-//   }

@@ -11,7 +11,8 @@ import { addMagicItemWebView } from './webViews/item.webview';
 import { addGenerateControlCommand } from './commands/generate/generateControl.command';
 import { MagicEnv } from '../env';
 import { GenerateCli } from './commands/generate/generate';
-import {  magicLanguageActivate } from '../magicLang/magicLang.extension';
+import {  magicCompletionInHtmlActivate } from '../magicLang/magicLang.extension';
+import { magicDiagnosticActivate } from '../magicLang/diagnostic';
 
 export const env = new MagicEnv();
 export let genCli : GenerateCli;
@@ -33,8 +34,7 @@ export async function initMagicExtension(context: vscode.ExtensionContext) : Pro
         if(env.projects.size > 0 ){
             vscode.commands.executeCommand('setContext', 'inMagicProject', true);
             genCli = new GenerateCli(context);
-            activateMagic(context);
-            magicLanguageActivate(context);           
+            activateMagic(context);                   
         } else {
             vscode.commands.executeCommand('setContext', 'inMagicProject', false);
             vscode.window.showErrorMessage('Not found Magic Metadata folder in any Angular prjects.');
@@ -69,6 +69,10 @@ export function activateMagic(context: vscode.ExtensionContext) {
 
     // WebViews
     addMagicItemWebView(context);
+
+    // Language
+    magicCompletionInHtmlActivate(context);  
+    magicDiagnosticActivate(context)
 }
 
 
