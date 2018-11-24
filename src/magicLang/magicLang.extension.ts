@@ -8,7 +8,8 @@ import {
     CompletionItemProvider, 
     Memento, 
     window, 
-    CompletionItemKind
+    CompletionItemKind,
+    TextEditor
 } from 'vscode';
 import { env, magicTreeView } from '../programes/magic.extension';
 import { MagicItem } from '../programes/providers/magicTreeItem';
@@ -26,7 +27,6 @@ class MagicCompletionItemProvider implements CompletionItemProvider {
         token    : CancellationToken,
         context  : any ): Promise<CompletionItem[]> {
 
-            console.log(`pos : ${position}`);
             let result;
 
             if(document.fileName != this.controls.path) {
@@ -53,23 +53,26 @@ export function magicCompletionInHtmlActivate(ctx: ExtensionContext): void {
 
     // Completion
     ctx.subscriptions.push(
-        languages.registerCompletionItemProvider(
-           [ 
-               //{ language: "html" , scheme: "http"} , 
-               { language: "html" , scheme: "file"  /* , pattern: '*.mg.html' */ } 
-            ],
-             new MagicCompletionItemProvider() ,
-             'magic=' 
-        ) 
+            languages.registerCompletionItemProvider(
+            [ 
+                //{ language: "html" , scheme: "http"} , 
+                { language: "html" , scheme: "file"  /* , pattern: '*.mg.html' */ } 
+                ],
+                new MagicCompletionItemProvider() ,
+                'magic=' 
+            ) 
     );
-    
-    window.onDidChangeActiveTextEditor( e => {
-        //arg.document.fileName
-        if(!e) return;
-        const mgForm = getMagicFormByPath(e.document.fileName);
-        magicTreeView.reveal(mgForm);
+    ctx.subscriptions.push(
+            window.onDidChangeActiveTextEditor( (e : TextEditor  | undefined) => {
+                
+                if(!e) return;
+                const mgForm = getMagicFormByPath(e.document.fileName);
+                
+                if(!mgForm) return;
+                magicTreeView.reveal(mgForm);
 
-    })
+            })
+    );
 
 
     // Diagnostic
@@ -79,9 +82,11 @@ export function magicCompletionInHtmlActivate(ctx: ExtensionContext): void {
 }
 
 function getMagicFormByPath(path:string) : MagicItem {
-     //TODO : REGX
+     //TODO : REGX /src\app\magic(.*).component
      let indexMagic = path.indexOf('\\src\\app\\magic\\');
-     let leftPath   = path.substring(indexMagic,path.length - '.component.html'.length);
+     let suffix     = path.lastIndexOf('.component');
+     let lengthSuffix =  path.length - suffix;
+     let leftPath   = path.substring(indexMagic,path.length - lengthSuffix);
      let folderPath = leftPath.substring('\\src\\app\\magic\\'.length);
  
      folderPath = folderPath.replace(/\\/g,'/');

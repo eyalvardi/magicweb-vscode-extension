@@ -2,7 +2,7 @@ import * as ejs from 'ejs';
 import { env } from '../../magic.extension';
 
 export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
-    const html = ejs.render( `
+    const html = ejs.render(/*html */ `
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -17,40 +17,15 @@ export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
                 <div class="row">
                     <div class="col">
                         <button id="refresh">Search for magic metadata folders</button><br>
-                        Metadata paths:
-                        <ul>
+                        <hr>
+                        
                           <% env.magicMetadataPaths.forEach( path => { %>
-                            <li><%= path %></li>
+                            ${mgPrj}
                           <% })%>  
-                        </ul>
+                      
                     </div>                    
                 </div>                
-            </div>
-            <h2>Components Status</h2>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Component</th>
-                    <th scope="col">Generate</th>
-                    <th scope="col">Numbers of Controls</th>
-                    <th scope="col">Last Update</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>                  
-                </tbody>
-              </table>
+            </div>           
         </body>
         <script>
         (function() {
@@ -72,4 +47,36 @@ export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
 
         return html;
     
-    }      
+    }
+    
+    
+const mgPrj = //html
+`
+    <div>
+        <h3><%= path %></h3>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Item</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr scope="row">
+                        <td>yes</td>
+                        <td>Metadata</td>
+                    </tr>
+                    <tr scope="row">
+                        <td>yes</td>
+                        <td>Config</td>
+                    </tr>
+                    <tr scope="row">
+                        <td>yes</td>
+                        <td>Server Config</td>
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+    </div>
+`;    

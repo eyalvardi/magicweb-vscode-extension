@@ -29,7 +29,9 @@ export function addMagicItemWebView(context: vscode.ExtensionContext) {
                             'magicOpenSetting',
                             "MagicWeb Setting",
                             vscode.ViewColumn.One,
-                            { }                   
+                            { 
+                                enableScripts: true
+                            }                   
                     
                       );
                       
