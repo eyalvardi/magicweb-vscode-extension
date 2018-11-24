@@ -13,13 +13,14 @@ import { MagicEnv } from '../env';
 import { GenerateCli } from './commands/generate/generate';
 import {  magicCompletionInHtmlActivate } from '../magicLang/magicLang.extension';
 import { magicDiagnosticActivate } from '../magicLang/diagnostic';
+import { window, ExtensionContext, TreeView } from 'vscode';
 
 export const env = new MagicEnv();
 export let genCli : GenerateCli;
 
 //export const magicData = new MagicData();
 export const programsTreeProvider = new MagicTreeDataProvider(env);
-export const magicTreeView = vscode.window.createTreeView<MagicTreeItem>("programsTree",{
+export const magicTreeView : TreeView<MagicTreeItem> = window.createTreeView<MagicTreeItem>( "programsTree" , {
                                     treeDataProvider : programsTreeProvider
                                 });
 
@@ -27,7 +28,7 @@ export const magicTreeView = vscode.window.createTreeView<MagicTreeItem>("progra
 
 
 
-export async function initMagicExtension(context: vscode.ExtensionContext) : Promise<void>{
+export async function initMagicExtension(context: ExtensionContext) : Promise<void>{
     try{
         await env.loadAngularWorkspace();
         await env.loadMagicMetadata();
@@ -46,7 +47,7 @@ export async function initMagicExtension(context: vscode.ExtensionContext) : Pro
 }                                
 
 
-export function activateMagic(context: vscode.ExtensionContext) {
+export function activateMagic(context: ExtensionContext) {
     console.log('Activate MagicWeb Extension');
     //const rootPath = vscode.workspace.rootPath;   
    

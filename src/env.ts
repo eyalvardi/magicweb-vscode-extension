@@ -54,8 +54,8 @@ export class MagicEnv {
     }
 
     async loadAngularWorkspace() : Promise<void> {
-        const workspaceFolderPath = await Commands.getWorkspaceFolderPath();      
-        const filePath = path.join( workspaceFolderPath , 'angular.json' );
+        this.vsWorkspace = await Commands.getWorkspaceFolderPath();      
+        const filePath = path.join(  this.vsWorkspace , 'angular.json' );
 
         const json = await Utils.readFileAsync(filePath);
         this.ngrWorkspace = JSON.parse(json);
