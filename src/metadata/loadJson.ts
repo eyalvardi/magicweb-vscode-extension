@@ -4,6 +4,7 @@ import * as path    from 'path';
 import * as fs      from 'fs';
 import * as JSON5   from 'json5';
 import { MagicItem } from '../programes/providers/MagicTreeItem.class';
+import { env } from '../programes/magic.extension';
 
 export async function fetchPrograms() : Promise<MagicTreeItem[]>{
     const filePath = path.join(vscode.workspace.rootPath || "","magic-metadata/magic.config.json");
@@ -20,12 +21,11 @@ export const MgNames = {
     serverConfig    : "server-config"
 };
 
-export async function loadMetadata(project:string, pathStr:string, parent? : MagicTreeItem) : Promise<any>{
-    const dirPath = path.join(vscode.workspace.rootPath || "","magic-metadata");
-    let names     = await Utils.readDirAsync( dirPath );
-    let stats     = await Promise.all( names.map( name => Utils.readStatsAsync(`${dirPath}\\${name}`) ) );
+export async function loadMetadata(project:string, pathStr:string, parent? : MagicTreeItem) : Promise<any>{    
+    let names     = await Utils.readDirAsync( env.metadataPath );
+    let stats     = await Promise.all( names.map( name => Utils.readStatsAsync(`${env.metadataPath}\\${name}`) ) );
 
-    return readChildren(names,stats,dirPath,0,project,parent);
+    return readChildren(names,stats,env.metadataPath,0,project,parent);
 
 }
 

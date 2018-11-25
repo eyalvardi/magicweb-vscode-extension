@@ -17,6 +17,7 @@ import {
     addGenerateComponentCommand, 
     addGenerateControlCommand 
 } from './commands';
+import { addGenerateFolderCommand } from './commands/generate/generateFolder.commands';
 
 export const env = new MagicEnv();
 export let genCli : GenerateCli;
@@ -66,6 +67,7 @@ export function activateMagic(context: ExtensionContext) {
     addGenerateAllCommand(context);
     addGenerateComponentCommand(context);
     addGenerateControlCommand(context);
+    addGenerateFolderCommand(context)
 
     // Providers
     addTextDocProvider(context);

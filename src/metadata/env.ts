@@ -4,6 +4,7 @@ import { Utils } from "../schematics/utils";
 import { Commands } from '../schematics/commands';
 import { MagicData } from './MagicData.class';
 import { MagicItem } from '../programes/providers/MagicTreeItem.class';
+import { MagicConfig } from './genConfig';
 
 export function getAngularWorkspace(){
 
@@ -37,8 +38,10 @@ export async function getWorkspaceFolderPath(path = ''): Promise<string> {
 export class MagicEnv {
     rootPath            : string = "";
     parentFolderName    : string = "";
+    metadataPath        : string = "";
     ngrWorkspace        : any;
     vsWorkspace         : any;
+    genConfig           = new MagicConfig();
     projects = new Map< string , { magic : MagicData, angular : NgProject }>();
 
     magicProjects : MagicData[] = [];
@@ -84,6 +87,8 @@ export class MagicEnv {
     }
 
     async loadMagicMetadata(project?:string) {
+        this.metadataPath = path.join(vscode.workspace.rootPath || "","magic-metadata");
+
         if(project && this.projects.has(project)){
             const prj =  this.projects.get(project);
             if(!prj) return;  
@@ -99,13 +104,21 @@ export class MagicEnv {
     }
 
     async refresh() : Promise<void>{
-        await this.loadAngularWorkspace();
-        await this.loadMagicMetadata();
+        try {
+                await this.loadAngularWorkspace();
+                await this.loadMagicMetadata();
 
-        this.magicProjects = Array
-                    .from  ( this.projects.values() )
-                    .map   ( prj => prj.magic)						   
-                    .filter( mgp => mgp.isMagicProject ) as MagicData[];
+                this.magicProjects = Array
+                            .from  ( this.projects.values() )
+                            .map   ( prj => prj.magic)						   
+                            .filter( mgp => mgp.isMagicProject ) as MagicData[];
+
+                await this.genConfig.loadConfig(  path.join(this.metadataPath,'config.json') );
+
+        } catch (error) {
+            vscode.window.showErrorMessage(`Env.Refresh error : ${error}`);
+        }
+                  
     }
 
     getMagicFormByPath(path:string) : MagicItem {
@@ -121,8 +134,9 @@ export class MagicEnv {
         let formsMaps = this.magicProjects.map ( prj => prj.forms );
     
         return formsMaps.map( f => f.get(folderPath) )[0] as MagicItem; 
-   }
-   getControlsFromPath(path:string,context  : any) : string[] {
+    }
+
+    getControlsFromPath(path:string,context  : any) : string[] {
        let result : string[]  = [];    
    
        let formsMagicData = this.getMagicFormByPath(path);
@@ -133,6 +147,6 @@ export class MagicEnv {
        
        return result;
    
-   }
+    }
 }
 

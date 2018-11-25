@@ -4,7 +4,7 @@ import { env } from "../magic.extension";
 
 export function addSearchCommand( context:  vscode.ExtensionContext ) {
     // Show Quick Pick
-    let mgpl = commands.registerCommand('magic.searchProgram',async()=>{
+    let mgpl = commands.registerCommand('magic.searchForms',async()=>{
         let forms = Array.from(env.projects.values())
                         .map   ( prj => prj.magic)
                         .filter( prj => prj.isMagicProject)

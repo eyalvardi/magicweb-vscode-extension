@@ -1,13 +1,25 @@
 # MagicWeb Visual Code Extension README
 
 
-## Features
+## General Commands
+- magic.generateAll
+- magic.searchForms
+- magic.refreshTree
+- magic.refreshMetadata
 
 
+## Form Commands
+- magic.generateComponent
+- magic.checkHtmlErrors
+
+## Controls Commands
+- magic.generateControl
 
 
-## Requirements
-
+## Open Commands
+- magic.openComponentHtml
+- magic.openItemProperties
+- magic.openSetting
 
 ## Extension Settings
 
