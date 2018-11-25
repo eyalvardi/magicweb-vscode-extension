@@ -10,7 +10,7 @@ import {
     DiagnosticSeverity,
     commands
 } from 'vscode';
-import { getControlsFromPath } from './magicLang.extension';
+import { env } from '../programes/magic.extension';
 
 
 let diagnosticCollection: DiagnosticCollection;
@@ -29,7 +29,7 @@ export function magicDiagnosticActivate(ctx: ExtensionContext): void {
                 
                 if( !editor ) return;
                 
-                const controlNames = getControlsFromPath(editor.document.fileName,ctx);
+                const controlNames = env.getControlsFromPath(editor.document.fileName,ctx);
                 checkDiagnostics(editor.document.uri, controlNames);
             }
         )

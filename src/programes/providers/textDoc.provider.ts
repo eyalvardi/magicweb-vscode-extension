@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import json5 = require("json5");
-import { MagicItem } from "./magicTreeItem";
+import { MagicItem } from "./MagicTreeItem.class";
 
 
 export function addTextDocProvider(context: vscode.ExtensionContext) {

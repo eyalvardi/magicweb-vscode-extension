@@ -1,15 +1,15 @@
 import * as vscode from "vscode";
 import * as path from 'path';
-import { MagicItem } from "../providers/magicTreeItem";
+import { MagicItem } from "../providers/MagicTreeItem.class";
 import { programsTreeProvider, env } from "../magic.extension";
-import { workspace, window, Selection, Range, TextEditor, TextEditorDecorationType } from "vscode";
+import { workspace, window, Selection, Range, TextEditor, TextEditorDecorationType, commands } from "vscode";
 
 export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
     let highlight = window.createTextEditorDecorationType({ 
         backgroundColor: 'rgba(200,200,200,.35)',
         border: '1px solid yellow'
       });
-    const gcc = vscode.commands.registerCommand('magic.openComponentHtml', async (context : MagicItem,...args:any[]) => {
+    const gcc = commands.registerCommand('magic.openComponentHtml', async (context : MagicItem,...args:any[]) => {
 
       if(!context) return;
 

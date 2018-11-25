@@ -1,19 +1,22 @@
 import * as vscode from 'vscode';
+import { window, ExtensionContext, TreeView } from 'vscode';
 
-import { MagicTreeDataProvider } from './providers/programsTreeDataProvider';
-import { addSearchCommand } from './commands/search.command';
-import { addGenerateAllCommand } from './commands/generate/generateAll.command';
-import { addRefreshTreeCommand } from './commands/refreshTree.command';
-import { addGenerateComponentCommand } from './commands/generate/generateComponent.command';
-import { addOpenComponentHtmlCommand } from './commands/openHtmlCmp.command';
+import { MagicTreeDataProvider } from './providers/ProgramsTreeDataProvider.class';
 import { addTextDocProvider } from './providers/textDoc.provider';
 import { addMagicItemWebView } from './webViews/item.webview';
-import { addGenerateControlCommand } from './commands/generate/generateControl.command';
-import { MagicEnv } from '../env';
-import { GenerateCli } from './commands/generate/generate';
+import { MagicEnv } from '../metadata';
 import {  magicCompletionInHtmlActivate } from '../magicLang/magicLang.extension';
 import { magicDiagnosticActivate } from '../magicLang/diagnostic';
-import { window, ExtensionContext, TreeView } from 'vscode';
+
+import { 
+    GenerateCli, 
+    addRefreshTreeCommand, 
+    addSearchCommand, 
+    addOpenComponentHtmlCommand, 
+    addGenerateAllCommand, 
+    addGenerateComponentCommand, 
+    addGenerateControlCommand 
+} from './commands';
 
 export const env = new MagicEnv();
 export let genCli : GenerateCli;
@@ -30,8 +33,7 @@ export const magicTreeView : TreeView<MagicTreeItem> = window.createTreeView<Mag
 
 export async function initMagicExtension(context: ExtensionContext) : Promise<void>{
     try{
-        await env.loadAngularWorkspace();
-        await env.loadMagicMetadata();
+        await env.refresh();        
         if(env.projects.size > 0 ){
             vscode.commands.executeCommand('setContext', 'inMagicProject', true);
             genCli = new GenerateCli(context);
