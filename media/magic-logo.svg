@@ -1,16 +1,23 @@
-<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
- <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="931.000000pt" height="1000.000000pt" viewBox="0 0 931.000000 1000.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
 
- <g>
-  <title>background</title>
-  <rect x="-1" y="-1" width="582" height="402" id="canvas_background" fill="#fff"/>
-  <g id="canvasGrid" display="none">
-   <rect id="svg_3" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
-  </g>
- </g>
- <g>
-  <title>Layer 1</title>
-  <rect fill="#fff" stroke="#000" stroke-width="1.5" x="7.5" y="9.770833" width="563" height="382" id="svg_1"/>
-  <text fill="#000000" stroke-width="0" x="165.980943" y="178.337515" id="svg_2" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(12.570342063903809,0,0,10.763954103367155,-2038.6520676612854,-1632.4862367998348) " stroke="#000">MG</text>
- </g>
+</metadata>
+<g transform="translate(0.000000,1000.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2313 9172 l-2313 -825 0 -36 c1 -20 159 -1407 353 -3084 l352 -3047
+1968 -1090 c1082 -600 1974 -1090 1982 -1090 8 0 900 490 1982 1090 l1968
+1090 352 3047 c194 1677 352 3064 353 3084 l0 36 -2318 826 c-1275 455 -2329
+827 -2343 826 -13 0 -1065 -372 -2336 -827z m1472 -3017 l862 -1925 868 1922
+c477 1058 871 1927 875 1931 5 5 11 -4 14 -20 7 -32 936 -5323 936 -5329 0 -2
+-175 -4 -389 -4 -362 0 -390 1 -395 18 -3 9 -116 676 -252 1482 -136 806 -250
+1469 -254 1473 -3 4 -318 -687 -698 -1535 -380 -849 -704 -1572 -720 -1608
+l-30 -65 -26 60 c-633 1437 -1402 3163 -1407 3157 -5 -6 -519 -2951 -519
+-2974 0 -5 -175 -8 -390 -8 -348 0 -390 2 -390 16 0 14 1023 5265 1037 5322 3
+13 8 21 11 18 2 -3 393 -872 867 -1931z"/>
+</g>
 </svg>
