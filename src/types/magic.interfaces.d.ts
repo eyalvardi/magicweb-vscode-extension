@@ -72,7 +72,7 @@ interface Control {
     coordinates: ControlCoordinates;
     hint:        null;
     controlType: null;
-    children:    ControlChild[];
+    children:    Control[];
   }
   
   interface ControlChild {

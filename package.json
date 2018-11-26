@@ -2,7 +2,7 @@
     "name": "magicweb-vscode-extenstion",
     "displayName": "MagicWeb VSCode Extension",
     "description": "MagicWeb VSCode Extension for generate Angular components form MagicWeb code.",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "publisher": "evardi",
     "icon": "media/magicWebLogo.png",
     "bugs": {
@@ -170,7 +170,7 @@
             },
             {
                 "command": "magic.generateComponent",
-                "title": "Generate a component",
+                "title": "Generate component",
                 "category": "Magic",
                 "icon": {
                     "light": "resources/light/generate.svg",
@@ -180,7 +180,7 @@
             {
                 "command": "magic.generateControl",
                 "category": "Magic",
-                "title": "Generate a control into component",
+                "title": "Generate control",
                 "icon": {
                     "light": "resources/light/generate.svg",
                     "dark": "resources/dark/generate.svg"
@@ -207,7 +207,7 @@
             },
             {
                 "command": "magic.checkHtmlErrors",
-                "title": "Check  controls names spelling",
+                "title": "Check controls name",
                 "category": "Magic",
                 "icon": {
                     "light": "resources/light/refresh.svg",

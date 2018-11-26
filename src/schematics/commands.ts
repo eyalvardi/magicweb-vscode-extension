@@ -147,7 +147,11 @@ export class Commands {
     }
 
     /** @todo Colored output? */
-    static async launchCommand(command: string, cwd: string, schema: string, defaultOption: string): Promise<void> {
+    static async launchCommand(
+        command: string, 
+        cwd: string, 
+        schema: string, 
+        defaultOption: string): Promise<string> {
 
         Output.channel.show();
 
@@ -159,7 +163,9 @@ export class Commands {
 
             Output.channel.appendLine(stdout);
 
-            vscode.window.setStatusBarMessage(`Schematics worked!`, 5000);
+            return stdout;
+
+            //vscode.window.setStatusBarMessage(`Schematics worked!`, 5000);
 
             // try {
             //     await this.jumpToFile(stdout, cwd, defaultOption, schema);
@@ -171,6 +177,7 @@ export class Commands {
             Output.channel.appendLine(error[1]);
 
             vscode.window.showErrorMessage(`Schematics failed, see Output.`);
+            return `Schematics failed, see Output.`;
 
         }
     
