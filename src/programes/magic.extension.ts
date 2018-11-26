@@ -46,7 +46,6 @@ export async function initMagicExtension(context: ExtensionContext) : Promise<vo
     } catch (ex) {
         vscode.window.showErrorMessage(ex);
     }
-
 }                                
 
 

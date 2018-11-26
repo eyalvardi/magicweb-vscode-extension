@@ -14,10 +14,10 @@ views.set('magicWeb.setting'  , createViewMagicWebSetting);
 views.set('magic-item.report' , createViewMagicItemReport);
 
 
-export function getView(viewName:string,...args:any[]) : string {
+export async function getView(viewName:string,...args:any[]) : Promise<string> {
     let viewFn = views.get(viewName)
     if(!viewFn) return "No view founded !!!";
-    return viewFn(args[0]);
+    return await viewFn(args[0]);
 }
 
 

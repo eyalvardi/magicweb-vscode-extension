@@ -46,6 +46,10 @@ export class MagicEnv {
 
     magicProjects : MagicData[] = [];
         
+    async getNPMDeps(){
+        const folders = await Utils.readDirAsync(path.join(this.vsWorkspace,'node_modules/@magic-xpa'));
+        return folders;
+    }
     
     isMagicProject(name:string) : boolean {
         return this.projects.has(name);

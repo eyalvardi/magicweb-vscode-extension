@@ -86,4 +86,8 @@ export class MagicConfig {
         });
         return result;
     }
+
+    generateControl(controlName:string ) {
+        
+    }
 }

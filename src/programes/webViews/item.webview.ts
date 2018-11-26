@@ -15,7 +15,7 @@ export function addMagicItemWebView(context: vscode.ExtensionContext) {
                     
                       );       
                     // And set its HTML content
-                    panel.webview.html = getView('magic-item.report',args[0]); 
+                    panel.webview.html = await getView('magic-item.report',args[0]); 
       
        
     }));
@@ -42,7 +42,7 @@ export function addMagicItemWebView(context: vscode.ExtensionContext) {
                     }, undefined, context.subscriptions);
 
                     // And set its HTML content
-                    panel.webview.html = getView('magicWeb.setting',args[0]); 
+                    panel.webview.html = await getView('magicWeb.setting',args[0]); 
       
        
     }));

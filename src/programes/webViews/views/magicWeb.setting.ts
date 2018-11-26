@@ -1,7 +1,8 @@
 import * as ejs from 'ejs';
 import { env } from '../../magic.extension';
 
-export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
+export async function createViewMagicWebSetting ( magicItem: MagicTreeItem ): Promise<string> {
+    const npm = await checkNpmDeps();
     const html = ejs.render(/*html */ `
         <!DOCTYPE html>
         <html lang="en">
@@ -19,8 +20,10 @@ export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
                         <button id="refresh">Search for magic metadata folders</button><br>
                         <hr>
                         
+                        ${npm}   
+                        
                           <% env.magicMetadataPaths.forEach( path => { %>
-                            ${mgPrj}
+                            ${getProjectTemplate()}
                           <% })%>  
                       
                     </div>                    
@@ -49,9 +52,9 @@ export function createViewMagicWebSetting ( magicItem: MagicTreeItem ): string {
     
     }
     
-    
-const mgPrj = //html
-`
+function getProjectTemplate() {    
+  const mgPrj = //html
+  `
     <div>
         <h3><%= path %></h3>
         <div>
@@ -79,4 +82,22 @@ const mgPrj = //html
             </table>
         </div>
     </div>
-`;    
+`;
+return mgPrj;
+}  
+
+async function checkNpmDeps(){
+    const npm = await env.getNPMDeps();
+    const magicModules = //html
+    `
+    <div>
+        <h4>Magic modules dependencies</h4>
+        <ul>       
+            <% npm.forEach( folder => { %>
+                <li>@magic-xpa/<%= folder %></li>
+            <% })%>        
+        </ul>
+    </div>
+    `;
+    return ejs.render(magicModules,{npm:npm});
+}

@@ -16,7 +16,7 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 		}
 
 	refresh(magicTreeItem?: MagicTreeItem): void {				
-		//await this.magicEnv.refresh();
+		await this.magicEnv.refresh();
 		if (magicTreeItem) {
 			this._onDidChangeTreeData.fire(magicTreeItem);
 		} else {
