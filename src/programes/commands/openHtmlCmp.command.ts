@@ -11,16 +11,15 @@ export function addOpenComponentHtmlCommand(context: vscode.ExtensionContext) {
       });
     const gcc = commands.registerCommand('magic.openComponentHtml', async (context : MagicItem,...args:any[]) => {
 
-      if(!context) return;
+      if(!context || !context.path ) return;
+      const fileName = context.type == "form" ? context.name : context.component;
+      const filePath = path.join( env.vsWorkspace ,'src/app/magic' ,context.path , `${fileName}.component.html`);
+      const document = await workspace.openTextDocument(filePath);
+      const editor   = await window.showTextDocument(document);
 
-      if(context.path && context.type === "form"){
-          const filePath = path.join( env.vsWorkspace ,'src/app/magic' ,context.path , `${context.name}.component.html`);
-          const document = await workspace.openTextDocument( filePath );
-          await window.showTextDocument(document);
-      }
-      if(context.type === "field") {    
+      if(context.type === "field") {
+
           if(window.activeTextEditor){
-            let editor = window.activeTextEditor;
             let html = editor.document.getText();
             let pos  = html.indexOf(`magic="${context.name}"`);
            

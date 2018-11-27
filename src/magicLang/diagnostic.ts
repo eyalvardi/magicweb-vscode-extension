@@ -8,7 +8,8 @@ import {
     Diagnostic,
     Uri,
     DiagnosticSeverity,
-    commands
+    commands,
+    workspace
 } from 'vscode';
 import { env } from '../programes/magic.extension';
 
@@ -17,8 +18,8 @@ let diagnosticCollection: DiagnosticCollection;
 
 
 export function magicDiagnosticActivate(ctx: ExtensionContext): void {
+    diagnosticCollection = languages.createDiagnosticCollection('magic')
     // Diagnostic
-    diagnosticCollection = languages.createDiagnosticCollection('magic');
     ctx.subscriptions.push(diagnosticCollection);
 
     //magic.checkHtmlErrors
@@ -34,6 +35,15 @@ export function magicDiagnosticActivate(ctx: ExtensionContext): void {
             }
         )
     );
+    ctx.subscriptions.push( 
+            workspace.onDidSaveTextDocument( document => {
+                if( !document ) return;
+                if ( env.isMagicComponent( document.fileName ) ) {
+                    commands.executeCommand('magic.checkHtmlErrors');
+                }        
+            })
+    );        
+
 }
 
 export function checkDiagnostics(uri:Uri,controlNames:string[]): DiagnosticCollection{

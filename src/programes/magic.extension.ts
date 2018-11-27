@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { window, ExtensionContext, TreeView } from 'vscode';
 
-import { MagicTreeDataProvider } from './providers/ProgramsTreeDataProvider.class';
+import { MagicTreeDataProvider } from './providers/MagicTreeDataProvider.class';
 import { addTextDocProvider } from './providers/textDoc.provider';
 import { addMagicItemWebView } from './webViews/item.webview';
 import { MagicEnv } from '../metadata';
@@ -18,6 +18,8 @@ import {
     addGenerateControlCommand 
 } from './commands';
 import { addGenerateFolderCommand } from './commands/generate/generateFolder.commands';
+import { addExpandCommand } from './commands/expand.command';
+import { MagicItem } from './providers/MagicTreeItem.class';
 
 export const env = new MagicEnv();
 export let genCli : GenerateCli;
@@ -28,14 +30,18 @@ export const magicTreeView : TreeView<MagicTreeItem> = window.createTreeView<Mag
                                     treeDataProvider : programsTreeProvider
                                 });
 
-
+ magicTreeView.onDidExpandElement( e => {
+    let item = e.element as MagicItem;
+    item.collapsibleState = item.collapsibleState === 1 ? 2 : 1;
+    programsTreeProvider.expand(item);
+ });
 
 
 
 export async function initMagicExtension(context: ExtensionContext) : Promise<void>{
     try{
         await env.refresh();        
-        if(env.projects.size > 0 ){
+        if(env.magicProjects.length > 0 ){
             vscode.commands.executeCommand('setContext', 'inMagicProject', true);
             genCli = new GenerateCli(context);
             activateMagic(context);                   
@@ -58,7 +64,7 @@ export function activateMagic(context: ExtensionContext) {
     // General commands
     addRefreshTreeCommand(context);
     addSearchCommand(context);  
-   
+    addExpandCommand(context)
     addOpenComponentHtmlCommand(context);
     
     

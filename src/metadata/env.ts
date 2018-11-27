@@ -125,13 +125,19 @@ export class MagicEnv {
                   
     }
 
-    getMagicFormByPath(path:string) : MagicItem {
+    getMagicFormByPath(path:string) : MagicItem | undefined {
+        
+        if(!this.isMagicComponent(path)) return;
+
         //TODO : REGX /src\app\magic(.*).component
-        let indexMagic = path.indexOf('\\src\\app\\magic\\');
-        let suffix     = path.lastIndexOf('.component');
+        let indexMagic   = path.indexOf('\\src\\app\\magic\\');
+        let suffix       = path.lastIndexOf('.component');
+
+        if(indexMagic === -1 || suffix === -1 ) return; //Not Magic code.
+
         let lengthSuffix =  path.length - suffix;
-        let leftPath   = path.substring(indexMagic,path.length - lengthSuffix);
-        let folderPath = leftPath.substring('\\src\\app\\magic\\'.length);
+        let leftPath     = path.substring(indexMagic,path.length - lengthSuffix);
+        let folderPath   = leftPath.substring('\\src\\app\\magic\\'.length);
     
         folderPath = folderPath.replace(/\\/g,'/');
     
@@ -151,6 +157,16 @@ export class MagicEnv {
        
        return result;
    
+    }
+
+    isMagicComponent(file:string): boolean {
+        //TODO : REGX /src\app\magic(.*).component
+        let indexMagic   = file.indexOf('\\src\\app\\magic\\');
+        let suffix       = file.lastIndexOf('.component');
+
+        if(indexMagic === -1 || suffix === -1 ) return false; //Not Magic code.
+
+        return true;
     }
 }
 

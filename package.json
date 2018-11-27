@@ -1,8 +1,8 @@
 {
     "name": "magicweb-vscode-extenstion",
-    "displayName": "MagicWeb VSCode Extension",
-    "description": "MagicWeb VSCode Extension for generate Angular components form MagicWeb code.",
-    "version": "0.1.3",
+    "displayName": "MagicWeb",
+    "description": "MagicWeb generate Angular components form magic metadata. See the site : magicweb.io",
+    "version": "0.1.4",
     "publisher": "evardi",
     "icon": "media/magicWebLogo.png",
     "bugs": {
@@ -74,49 +74,54 @@
                 {
                     "command": "magic.searchForms",
                     "group": "navigation"
+                },
+                {
+                    "command": "magic.expand",
+                    "group": "navigation"
                 }
             ],
             "view/item/context": [
                 {
                     "command": "magic.searchForms",
+                    "group": "magic@1",
+                    "when": "inMagicProject"
+                },
+                {
+                    "command": "magic.expand",
+                    "group": "magic@2",
                     "when": "inMagicProject"
                 },
                 {
                     "command": "magic.openItemProperties",
+                    "group": "magic@3",
                     "when": "inMagicProject"
                 },
                 {
                     "command": "magic.generateFolder",
+                    "group": "magic@0",
                     "when": "viewItem != form && viewItem != field"
                 },
                 {
                     "command": "magic.generateComponent",
-                    "group": "magicschematics@1",
-                    "when": "viewItem == form"
-                },
-                {
-                    "command": "magic.openComponentHtml",
-                    "group": "magicschematics@1",
+                    "group": "form@1",
                     "when": "viewItem == form"
                 },
                 {
                     "command": "magic.checkHtmlErrors",
-                    "group": "magicschematics@2",
+                    "group": "form@2",
                     "when": "viewItem == form"
                 },
                 {
+                    "command": "magic.openComponentHtml",
+                    "group": "form@1",
+                    "when": "viewItem == form || viewItem == field"
+                },               
+                {
                     "command": "magic.generateControl",
-                    "group": "magicschematics@1",
+                    "group": "field@1",
                     "when": "viewItem == field"
                 }
-            ],
-            "explorer/context": [
-                {
-                    "command": "magic.generateComponent",
-                    "group": "magicschematics@1",
-                    "when": "inMagicProject"
-                }
-            ],
+            ],           
             "editor/title": [
                
             ]
@@ -143,7 +148,7 @@
             },
             {
                 "command": "magic.searchForms",
-                "title": "Search Angular component (Magic form)",
+                "title": "Search component",
                 "category": "Magic",
                 "icon": {
                     "light": "resources/light/search.svg",
@@ -213,6 +218,15 @@
                     "light": "resources/light/refresh.svg",
                     "dark": "resources/dark/refresh.svg"
                 }
+            },
+            {
+                "command": "magic.expand",
+                "title": "Expand items",
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
             }
         ],
         "keybindings": [
@@ -230,11 +244,11 @@
     },
     "markdown": "github",
     "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "vscode:prepublish" : "npm run compile",
+        "compile"           : "tsc -p ./",
+        "watch"             : "tsc -watch -p ./",
+        "postinstall"       : "node ./node_modules/vscode/bin/install",
+        "test"              : "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
         "typescript": "^2.6.1",
