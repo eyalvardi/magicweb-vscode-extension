@@ -101,3 +101,7 @@ async function checkNpmDeps(){
     `;
     return ejs.render(magicModules,{npm:npm});
 }
+
+export function themeSetting(){
+    
+}

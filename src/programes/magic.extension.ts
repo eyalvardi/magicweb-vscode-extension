@@ -15,11 +15,11 @@ import {
     addOpenComponentHtmlCommand, 
     addGenerateAllCommand, 
     addGenerateComponentCommand, 
-    addGenerateControlCommand 
+    addGenerateControlCommand, 
+    addExpandCommand,
+    addCollapseCommand,
+    addGenerateFolderCommand
 } from './commands';
-import { addGenerateFolderCommand } from './commands/generate/generateFolder.commands';
-import { addExpandCommand } from './commands/expand.command';
-import { MagicItem } from './providers/MagicTreeItem.class';
 
 export const env = new MagicEnv();
 export let genCli : GenerateCli;
@@ -30,11 +30,11 @@ export const magicTreeView : TreeView<MagicTreeItem> = window.createTreeView<Mag
                                     treeDataProvider : programsTreeProvider
                                 });
 
- magicTreeView.onDidExpandElement( e => {
-    let item = e.element as MagicItem;
-    item.collapsibleState = item.collapsibleState === 1 ? 2 : 1;
-    programsTreeProvider.expand(item);
- });
+//  magicTreeView.onDidExpandElement( e => {
+//     let item = e.element as MagicItem;
+//     item.collapsibleState = item.collapsibleState === 1 ? 2 : 1;
+//     programsTreeProvider.expand(item);
+//  });
 
 
 
@@ -64,7 +64,8 @@ export function activateMagic(context: ExtensionContext) {
     // General commands
     addRefreshTreeCommand(context);
     addSearchCommand(context);  
-    addExpandCommand(context)
+    addExpandCommand(context);
+    addCollapseCommand(context)
     addOpenComponentHtmlCommand(context);
     
     

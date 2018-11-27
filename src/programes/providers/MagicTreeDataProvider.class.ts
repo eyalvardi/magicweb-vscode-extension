@@ -24,24 +24,37 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 			this._onDidChangeTreeData.fire();
 		}
 	}
-
+	collapse(treeItem : MagicItem){
+		if(treeItem){
+			this.setCollapsibleState(treeItem,TreeItemCollapsibleState.Collapsed);		
+		} else {
+			this.magicEnv.magicProjects.forEach( prj => {
+				this.collapse( prj.treeItem );
+			});
+		}
+		this._onDidChangeTreeData.fire();
+	}
 	expand(treeItem : MagicItem){
 		if(treeItem){
-		this.expandItems(treeItem);
-		this._onDidChangeTreeData.fire(treeItem);
+			this.setCollapsibleState(treeItem,TreeItemCollapsibleState.Expanded);		
 		} else {
 			this.magicEnv.magicProjects.forEach( prj => {
 				this.expand( prj.treeItem );
 			});
 		}
+		this._onDidChangeTreeData.fire();
 	}
 
-	expandItems(treeItem : MagicItem) : void {
-		treeItem.collapsibleState = TreeItemCollapsibleState.Expanded;
+	setCollapsibleState(treeItem : MagicItem, state : TreeItemCollapsibleState) : void {
+		const stateToReplace = treeItem.collapsibleState === TreeItemCollapsibleState.Collapsed ? TreeItemCollapsibleState.Expanded : TreeItemCollapsibleState.Collapsed;
+		(<any>treeItem).id   = `${treeItem.id.substring(0,treeItem.id.length-2)}${stateToReplace}-`;     // treeItem.id.replace(`-${treeItem.collapsibleState}-`,`-${stateToReplace}-`)
+		treeItem.collapsibleState = state;
+		
+		//treeItem.id = treeItem.id+1 
 		const children = treeItem.children ? treeItem.children : (<MagicData><any>treeItem).tree
 		if( children) {
 			children.forEach( child => {
-				this.expandItems(child as MagicItem);
+				this.setCollapsibleState(child as MagicItem,state);
 			});
 		}
 	}
@@ -69,7 +82,7 @@ export class MagicTreeDataProvider implements vscode.TreeDataProvider<MagicTreeI
 		let result:any[] = [];
 		// MagicItem
 		if(element instanceof MagicItem){
-			if (element && MagicItem.isChildren(element as MagicTreeItem)){
+			if (element && MagicItem.isChildren(element as MagicTreeItem) === 1){
 				if( element.children && element.children.length > 0){ 
 					result = element.children; 
 				} else if (element.controls && element.controls.length > 0 ) {

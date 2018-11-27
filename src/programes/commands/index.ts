@@ -11,3 +11,4 @@ export * from './generate/generate';
 export * from './generate/generateAll.command';
 export * from './generate/generateComponent.command';
 export * from './generate/generateControl.command';
+export * from './generate/generateFolder.commands';

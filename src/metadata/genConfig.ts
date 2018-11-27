@@ -28,7 +28,7 @@ export class MagicConfig {
         exposed_functionality:false,   
         
         source_images_folder: "",
-        theme               : "",
+        theme               : "basicHTML",
         output_folder       : "",
         project_name        : "",
 

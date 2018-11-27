@@ -10,3 +10,11 @@ export function addExpandCommand(context: ExtensionContext) {
         })
     )
 }
+
+export function addCollapseCommand(context: ExtensionContext) {
+    context.subscriptions.push(
+        commands.registerCommand('magic.collapse', async (treeItem : MagicItem) => {
+            programsTreeProvider.collapse(treeItem);
+        })
+    )
+}

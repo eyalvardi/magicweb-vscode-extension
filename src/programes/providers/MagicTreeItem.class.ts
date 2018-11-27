@@ -55,19 +55,17 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 	get parent(){ return this._parent || this.mgTreeItem.parent; }
 	set parent(val) { this._parent = val; } 
 	
-	static isChildren(item: MagicTreeItem){
+	static isChildren(item: MagicTreeItem) : TreeItemCollapsibleState{
 		return ( item.children && item.children.length > 0 ) || 
-			   ( item.controls && item.controls.length > 0 );				
+			   ( item.controls && item.controls.length > 0 ) ? 
+				   TreeItemCollapsibleState.Collapsed : 
+				   TreeItemCollapsibleState.None;				
 	}
 
 	constructor( public mgTreeItem: MagicTreeItem ) {
 		
-		super( mgTreeItem.name, 
-		       MagicItem.isChildren(mgTreeItem) ?  
-						   vscode.TreeItemCollapsibleState.Collapsed :  
-						   vscode.TreeItemCollapsibleState.None
-			);
-		super.id = `${counter++}`;
+		super( mgTreeItem.name, MagicItem.isChildren(mgTreeItem) );
+		super.id     = `${counter++}-${MagicItem.isChildren(mgTreeItem)}-`;//`${mgTreeItem.path}-${mgTreeItem.type}-${mgTreeItem.name}`;
 		this._parent = mgTreeItem.parent;
 		this.setCommand();
 
@@ -77,7 +75,7 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 		
 	}
 	get tooltip(): string {
-		return `${this.type} - ${this.label}`;
+		return `${this.type.toUpperCase()}: ${this.label} , id:${this.id}`;
 	}
 	get iconPath(){
 		let icon = this.icon as string;
@@ -91,7 +89,7 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 
 		return {
 				light: path.join(baseIconPath, 'light', `${icon}.svg`),
-				dark : path.join(baseIconPath, 'dark', `${icon}.svg`)
+				dark : path.join(baseIconPath, 'dark' , `${icon}.svg`)
 		};
 	}
 

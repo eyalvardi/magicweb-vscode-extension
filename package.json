@@ -78,6 +78,10 @@
                 {
                     "command": "magic.expand",
                     "group": "navigation"
+                },
+                {
+                    "command": "magic.collapse",
+                    "group": "navigation"
                 }
             ],
             "view/item/context": [
@@ -89,6 +93,11 @@
                 {
                     "command": "magic.expand",
                     "group": "magic@2",
+                    "when": "inMagicProject"
+                },
+                {
+                    "command": "magic.collapse",
+                    "group": "magic@3",
                     "when": "inMagicProject"
                 },
                 {
@@ -224,8 +233,17 @@
                 "title": "Expand items",
                 "category": "Magic",
                 "icon": {
-                    "light": "resources/light/refresh.svg",
-                    "dark": "resources/dark/refresh.svg"
+                    "light": "resources/light/expanding.svg",
+                    "dark": "resources/dark/expanding.svg"
+                }
+            },
+            {
+                "command": "magic.collapse",
+                "title": "Collapse items",
+                "category": "Magic",
+                "icon": {
+                    "light": "resources/light/collapse.svg",
+                    "dark": "resources/dark/collapse.svg"
                 }
             }
         ],
