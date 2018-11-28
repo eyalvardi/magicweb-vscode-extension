@@ -32,12 +32,7 @@
        
     ],
     "activationEvents": [
-        "workspaceContains:angular.json",
-        "onCommand:magic.searchForms",
-        "onCommand:markdown.showPreview",
-        "onView:programsTree",
-        "onLanguage:markdown",
-        "*"
+        "workspaceContains:angular.json"        
     ],
     "main": "./out/extension",
     "contributes": {
@@ -46,22 +41,23 @@
                 {
                     "id"   : "magic-explorer",
                     "title": "MagicWeb",
-                    "icon" : "media/dep.svg"
+                    "icon" : "media/logo.png"
                 }
             ]
         },
         "views": {
             "explorer": [
                 {
-                    "id": "programsTree",
-                    "name": "Magic programs tree",
+                    "id"  : "magicTreeExplorer",
+                    "name": "MagicWeb programs tree",
                     "when": "inMagicProject"
                 }
             ],
             "magic-explorer": [
                 {
-                    "id": "programsTree",
-                    "name": "Programs"
+                    "id"  : "magicTreeActivityBar",
+                    "name": "MagicWeb programs tree",                    
+                    "when": "inMagicProject"
                 }
             ]
         },
