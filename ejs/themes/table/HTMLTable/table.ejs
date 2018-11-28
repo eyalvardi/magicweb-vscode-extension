@@ -1,0 +1,37 @@
+<div class="<%= ctrl.props.id %>"
+     <%- include('../../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+     <% if(ctrl.props.scroll_bar) {%>
+        infinite-scroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="500"
+        (scrolled)="tableService.onScrollDown()"
+        [scrollWindow]="false"
+     <%}%>
+>
+    <table>
+        <% if (ctrl.children) { %>
+            <% ctrl.children.forEach(child =>{ %>
+               <%- include(`./columnHeader`, {ctrl: child}) %>
+        <%})} %>
+
+        <%# pass on the no_modifiable_descendants flag to the columns %>
+        <% if (ctrl.props.no_modifiable_descendants && ctrl.children) { %>
+           <% ctrl.children.forEach(child =>{ %>
+              <% child.props.no_modifiable_descendants = ctrl.props.no_modifiable_descendants; %>
+        <%})} %>
+        <ng-container *ngFor="let row of task.Records.list">
+            <tr *ngIf="mg.ifRowCreated(row) && !mg.isDataviewEmpty()"  id="row"
+                <%if (typeof ctrl.props.no_modifiable_descendants === "undefined") {%>
+                   [formGroup]="mg.getFormGroupByRow(row.rowId)"
+                <%}%>
+                class="<%= ctrl.props.id %>_table_rowProps"
+                [ngClass]="{ 'selected': mg.isRowSelected('<%= ctrl.props.id %>', row.rowId)}"
+                [class.selected]="tableService.getSelectedRow() === row.rowId"
+                (click)="tableService.selectRow(row.rowId)"
+                [magicRow]="row?.rowId"
+            >
+                <%- include(`../../container`, {ctrl: ctrl}) %>
+            </tr>
+        </ng-container>
+    </table>
+</div>

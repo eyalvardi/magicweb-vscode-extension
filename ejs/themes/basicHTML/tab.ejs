@@ -1,0 +1,31 @@
+<%# set a tab side var, for convenience %>
+<% let tab_side = ctrl.props.tab_control_side ? ctrl.props.tab_control_side : SideType.Top%>
+
+<div
+        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+>
+    <%# extra div to add the tab style%>
+    <div class="tab_control">
+        <% if ( tab_side == SideType.Bottom) { %>
+            <%# add tab pages before adding the buttons, so the buttons are at the bottom%>
+            <%- include(`../container`, {child: ctrl}) %>
+        <% }%>
+
+        <%# add buttons for each tab page%>
+        <div  *ngFor="let o of mg.getItemListValues('<%-ctrl.props.id%>')">
+            <button class="tab_button"
+                    <%- include('../../attributes/common/base/enabled', {ctrl : ctrl}) %>
+                    (click)="task.mgOnTabSelectionChanged('<%-ctrl.props.id%>', o.index)"
+                    [ngClass]="{'tab_button_active' : mg.isTabPageSelected('<%- ctrl.props.id %>', o.index+1 )}"
+            >
+                {{mg.getTabpageText('<%- ctrl.props.id %>', o.index)}}
+            </button>
+        </div>
+
+        <% if ( tab_side == SideType.Top) { %>
+            <%# add tab pages after adding the buttons, so the buttons are at the top%>
+            <%- include(`../container`, {child: ctrl}) %>
+        <% }%>
+    </div>
+</div>
+

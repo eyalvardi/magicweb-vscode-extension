@@ -1,0 +1,50 @@
+    <% switch (child.controlType){
+    case MgControlType.CTRL_TYPE_TEXT: %>
+    <%- include(`./editTypeSelector`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_LABEL: %>
+    <%- include(`./${theme}/label`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_BUTTON: %>
+    <%- include(`./${theme}/push-button`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_IMAGE: %>
+    <%- include(`./${theme}/image`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_SUBFORM: %>
+    <%- include(`./${theme}/subform`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_NONE : %>
+    <%- include(`container`, {ctrl: child}) %>
+    <% break;
+    case MgControlType.CTRL_TYPE_CHECKBOX: %>
+    <%- include(`./${theme}/checkbox`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_COMBO: %>
+    <%- include(`./${theme}/combobox`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_LIST: %>
+    <%- include(`./${theme}/listbox`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_RADIO: %>
+    <%- include(`./${theme}/radio`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_TABLE: %>
+    <%- include(`./tableTypeSelector`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_GROUP: %>
+    <%- include(`./${theme}/group`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_COLUMN: %>
+    <%- include(`./tableTypeSelector`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_TAB: %>
+    <%- include(`./${theme}/tab`, {ctrl: child}) %>
+    <% break
+    case MgControlType.CTRL_TYPE_TABPAGE: %>
+    <%- include(`./${theme}/tabpage`, {ctrl: child}) %>
+    <% break
+    default: %>
+    <%- include(`../component/view.component.html.ejs`, {ctrl: child}) %>
+    <% break
+    } %>

@@ -1,0 +1,11 @@
+<label <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <%- include('../../attributes/common/base/enabled', {ctrl : ctrl}) %>
+>
+<%if(ctrl.props.text) { %>
+    <%if(ctrl.props.text.has_exp || ctrl.style && ctrl.style.multiline_edit) { %>
+        {{mg.getText('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)}}
+    <% } else {%>
+        <%=ctrl.props.text%>
+    <%}%>
+<% } %>
+</label>

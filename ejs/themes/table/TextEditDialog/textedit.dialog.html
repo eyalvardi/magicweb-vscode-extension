@@ -1,0 +1,28 @@
+<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+
+ <!--<div mat-dialog-content>-->
+<div [ngSwitch]="data.type">
+  <div *ngSwitchCase="'D'">
+    <mat-form-field>
+    <input  [matDatepicker]=datepicker (keyup.enter)="onEnter(value)" cdkFocusInitial (focus)="datepicker.open()"
+            (click)="datepicker.open()" matInput [(ngModel)]="data.text">
+    <mat-datepicker-toggle matSuffix [for]=datepicker></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div *ngSwitchCase="'T'">
+    <mat-form-field>
+      <input type='time' step=1 (keyup.enter)="onEnter(value)" cdkFocusInitial matInput [(ngModel)]="data.text">
+    </mat-form-field>
+  </div>
+  <div *ngSwitchDefault>
+    <mat-form-field>
+      <input (keyup.enter)="onEnter(value)" cdkFocusInitial matInput [(ngModel)]="data.text">
+    </mat-form-field>
+  </div>
+</div>    <!--</div>-->
+<!--</div>-->
+<!--<div mat-dialog-actions>-->
+  <!--<button mat-button [mat-dialog-close]="data.text" cdkFocusInitial>Save</button>-->
+  <!--<button mat-button (click)="onNoClick()">Cancel</button>-->
+<!--</div>-->

@@ -1,0 +1,8 @@
+<% if(ctrl.props.is_router_outlet != null && ctrl.props.is_router_outlet == true){ %>
+<%- include('../router_outlet', {ctrl : ctrl}) %>
+<% } else { %>
+<mat-card <%- include('../../attributes/common/base/visible', {ctrl : ctrl}) %> >
+    <magic-subform <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %> >
+    </magic-subform>
+</mat-card>
+<% } %>

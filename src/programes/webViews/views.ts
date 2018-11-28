@@ -1,12 +1,9 @@
 import {createViewMagicWebSetting} from './views/magicWeb.setting';
 import {createViewMagicItemReport} from './views/magic-item.report';
 
+// import test from './views/test.ejs';
 
-//import magicWebSetting from './views/magicWeb.setting.ejs!text';
-//import magicItemReport from './views/magic-item.report.ejs!text';
-
-//onst magicWebSetting = require('./views/magicWeb.setting.ejs');
-//const magicItemReport = require('./views/magic-item.report.ejs');
+// console.log(`test : ${test}`);
 
 const views = new Map<string,Function>();
 
@@ -14,30 +11,9 @@ views.set('magicWeb.setting'  , createViewMagicWebSetting);
 views.set('magic-item.report' , createViewMagicItemReport);
 
 
-export async function getView(viewName:string,...args:any[]) : Promise<string> {
+export async function getView(viewName:string, vm:any, ...args:any[]) : Promise<string> {
     let viewFn = views.get(viewName)
     if(!viewFn) return "No view founded !!!";
-    return await viewFn(args[0]);
+
+    return await viewFn(vm);
 }
-
-
-// export async function fetchView(view:string) : Promise<string> {
-
-//     let resultViewStr = "";
-
-//     if(views.has(view)){
-//         resultViewStr = views.get(view) || "";
-//     } else {
-//         try{
-//             const filePath = path.join(vscode.workspace.rootPath || "" , `./views/${view}.ejs`,);
-//             console.log(`view path: ${filePath}`);
-//             resultViewStr  =  await Utils.readFileAsync(`./views/${view}.ejs`);
-//         } catch (ex){
-//             console.dir(ex);
-//         }
-        
-//     }
-
-        
-//     return JSON.parse(resultViewStr); 
-// }

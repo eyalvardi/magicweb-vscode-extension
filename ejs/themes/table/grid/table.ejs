@@ -1,0 +1,36 @@
+
+<div class="example-container mat-elevation-z8 <%- ctrl.props.id %>TableContainerProps"
+  <%- include('../../../attributes/common/base/visible', {ctrl : ctrl}) %>
+  <%- include('../../../attributes/common/base/tooltip', {ctrl : ctrl})%>
+  <%- include('../../../attributes/common/base/testingId', {ctrl : ctrl}) %>
+  <%- include('../../../attributes/common/base/control_type', {ctrl : ctrl}) %>
+>
+  <mat-table #table [dataSource]="dataSource"
+    <%- include('../../../attributes/common/base/class', {ctrl : ctrl})%>
+             matSort
+             matSortDisableClear
+             (matSortChange)="tableService.sortData($event)"
+  >
+
+    <%- include(`../../container`, {ctrl: ctrl}) %>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" class="<%- ctrl.props.id %>_table_headerRowProps"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="<%- ctrl.props.id %>_table_rowProps"
+             [ngClass]="{ 'selected': selection.isSelected(row)}" [magicRow]="row?.rowId"
+      <% if(magicConfig.allow_testing) { %>
+             MgControlType="MgRow"
+      <% } %>
+      <% if(ctrl.style && ctrl.style.line_divider && ctrl.style.line_divider.has_exp) { %>
+             [ngStyle]="{'border-bottom-style': mg.getStyle(<%- `'${ctrl.props.id}'`%>, magicProperties.LineDivider)}"
+      <%}%>
+             (click)="tableService.selectRow(row.rowId)"
+    >
+    </mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 (page)="tableService.mgOnPaginateChange($event)"
+  >
+  </mat-paginator>
+</div>

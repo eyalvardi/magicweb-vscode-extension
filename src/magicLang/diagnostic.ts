@@ -53,7 +53,7 @@ export function checkDiagnostics(uri:Uri,controlNames:string[]): DiagnosticColle
         diagnosticCollection.clear();
 
         const html = editor.document.getText();
-        let regexp = /magic="(.*)"/mg;
+        let regexp =  /magic="?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/mg     /// version 1/magic="(.*)"/mg;
         let results = [];
         let r;
 

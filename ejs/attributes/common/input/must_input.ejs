@@ -1,0 +1,8 @@
+<% if (ctrl.props.must_input && ctrl.props.must_input.has_exp){ %>
+[required]="mg.getMustInput('<%= ctrl.props.id %>'<% if(ctrl.props.is_table_child && (ctrl.controlType !== MgControlType.CTRL_TYPE_COLUMN)){ %>, row.rowId<%}%>)"
+<% } %>
+
+<% if (ctrl.props.password_edit && !ctrl.props.password_edit.has_exp){ %>
+[attr.required]="<%=ctrl.props.password_edit.value ? 'true' : null%>"
+<% } %>
+

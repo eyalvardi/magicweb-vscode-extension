@@ -1,0 +1,46 @@
+<div
+  <% if (ctrl.props.is_table_child && (typeof ctrl.props.web_style === "undefined" || ctrl.props.web_style === TableWebStyle.MatGrid)) { %>
+  [formGroup]="mg.getFormGroupByRow(row.rowId)"
+  <%}%>
+>
+
+  <%# show combo box in table only while we on row edit  %>
+  <% if (ctrl.props.is_table_child) { %>
+  <div *ngIf="mg.isRowInRowEditing(row)">
+    <%}%>
+
+    <mat-form-field   <%- include('../../attributes/common/container_attributes', {ctrl : ctrl}) %>>
+        <mat-select
+                <%- include(`../../attributes/common/control_attributes`, {ctrl : ctrl})%>
+                <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+                <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %>
+                required
+                <% } %>
+        >
+            <mat-option
+                    *ngFor="let o of mg.getItemListValues('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>);"
+
+                    [value]="o.index"
+            >
+                {{o.displayValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <% if (ctrl.props.must_input) { %>
+    <div *ngIf="(screenFormGroup.get('<%- ctrl.props.id %>').dirty) &&
+            screenFormGroup.get('<%- ctrl.props.id %>').hasError('required')">
+        <p> {{ mg.getErrMsg('<%- ctrl.props.id %>') }}</p>
+    </div>
+    <% } %>
+
+    <% if (ctrl.props.is_table_child) { %>
+    </div>
+    <%# show lable in table only while we on row read only  %>
+     <div *ngIf="!mg.isRowInRowEditing(row)">
+         <label <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>>
+             {{ mg.getDisplayValue('<%- ctrl.props.id %>', row.rowId) }}
+          </label>
+     </div>
+     <%}%>
+
+  </div>

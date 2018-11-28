@@ -1,0 +1,20 @@
+<div
+  <% if (ctrl.props.is_table_child && (typeof ctrl.props.web_style === "undefined" || ctrl.props.web_style === TableWebStyle.MatGrid)) { %>
+     [formGroup]="mg.getFormGroupByRow(row.rowId)"
+  <%}%>
+>
+  <mat-checkbox
+        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <%- include('../../attributes/common/input_attributes', {ctrl : ctrl})%>
+        <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+>
+    <%if(ctrl.props.text!== "" || ctrl.props.text.has_exp ){ %>
+        <%if(ctrl.props.text.has_exp || ctrl.style && ctrl.style.multiline_edit) { %>
+            {{mg.getText('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)}}
+        <% } else {%>
+            <%=ctrl.props.text%>
+        <%}%>
+    <% }%>
+
+</mat-checkbox>
+</div>

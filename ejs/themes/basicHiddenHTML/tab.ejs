@@ -1,0 +1,13 @@
+<div
+        <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>
+>
+<div class="tab_control" magicMark="magicTabControl">                       <%# extra div to add the tab style%>
+    <%# add buttons for each tab page%>
+<% ctrl.children.forEach(child =>{ %>
+    <button class="tab_button" layer=<%-child.props.layer%>></button>
+<%   } ) %>
+<%# add tab pages%>
+<%- include(`../container`, {child: ctrl}) %>
+</div>
+</div>
+

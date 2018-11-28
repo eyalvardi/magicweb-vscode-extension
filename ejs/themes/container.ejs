@@ -1,0 +1,7 @@
+<% if (ctrl.children) { %>
+    <% ctrl.children.forEach(child =>{ %>      
+
+        <%- include(`./control`, {child: child}) %>
+
+    <% }) %>
+<%}%>

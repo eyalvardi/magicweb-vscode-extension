@@ -1,0 +1,46 @@
+<div
+  <% if (ctrl.props.is_table_child && (typeof ctrl.props.web_style === "undefined" || ctrl.props.web_style === TableWebStyle.MatGrid)) { %>
+    [formGroup]="mg.getFormGroupByRow(row.rowId)"
+  <%}%>
+>
+<%if(ctrl.props.text!== "" || ctrl.props.text.has_exp ){ %>
+<div  <%- include('../../attributes/common/container_attributes', {ctrl : ctrl}) %> >
+    <input  type="checkbox"
+            <%- include('../../attributes/common/control_attributes', {ctrl : ctrl}) %>
+            <% if (ctrl.props.is_table_child){ %>
+                id="<%-ctrl.props.id%>_{{row.rowId}}"
+            <% } else { %>
+                id="<%-ctrl.props.id%>"
+            <%}%>
+
+            <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+
+    />
+    <label for="<%-ctrl.props.id%>">
+        <%if(ctrl.props.text) { %>
+        <%if(ctrl.props.text.has_exp) { %>
+        {{mg.getText('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)}}
+        <% } else {%>
+        <%=ctrl.props.text%>
+        <%}%>
+        <% } %>
+    </label>
+</div>
+<% } else {%>
+<input  type="checkbox"
+        <% if (ctrl.props.is_table_child){ %>
+            id="<%-ctrl.props.id%>_{{row.rowId}}"
+        <% } else { %>
+            id="<%-ctrl.props.id%>"
+        <%}%>
+        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+/>
+<%}%>
+    <% if (ctrl.props.must_input) {%>
+    <div *ngIf="(screenFormGroup.get('<%- ctrl.props.id %>').dirty) &&
+            screenFormGroup.get('<%- ctrl.props.id %>').hasError('required')" >
+        <p>{{ mg.getErrMsg('<%- ctrl.props.id %>')}}</p>
+    </div>
+    <%}%>
+</div>

@@ -1,0 +1,6 @@
+
+<div *ngIf="mg.isImageExists('<%- ctrl.props.id %>')">
+    <img    <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+            <%- include('../../attributes/common/base/enabled', {ctrl : ctrl}) %>
+            [src]="mg.getImage('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)" />
+</div>

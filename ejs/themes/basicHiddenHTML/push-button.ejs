@@ -1,0 +1,26 @@
+
+
+<% if (ctrl.props.button_style && ctrl.props.button_style != CtrlButtonTypeGui.Push) {%>
+<%# if button has a style, it is not a pushbutton%>
+    <% switch ((ctrl.props.button_style)) {
+        case CtrlButtonTypeGui.Image : %>
+            <input
+                    type="button"
+                    <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>
+            />
+        <% break;
+
+        case CtrlButtonTypeGui.Hypertext : %>
+            <a  href="#" <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>>
+            </a>
+
+        <% break;
+
+    } %>
+
+<% } else {%> <%# button is a pushbutton %>
+    <button
+        <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %> >
+    </button>
+<% } %>%>
+

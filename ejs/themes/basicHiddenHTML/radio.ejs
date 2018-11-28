@@ -1,0 +1,17 @@
+<div
+        <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>
+        magicMark="magicRadio"
+>
+    <div
+            *ngFor="let o of mgGetListboxValues('<%-ctrl.props.id%>');">
+        <label>
+            <input
+                    type="radio"
+                    <%- include('../../attributes/common/base/no_control_id', {ctrl : ctrl}) %>
+                    <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+                    [value] = "o.index"
+            />
+            {{o.displayValue}}
+        </label>
+    </div>
+</div>

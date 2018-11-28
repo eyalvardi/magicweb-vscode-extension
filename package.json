@@ -263,8 +263,12 @@
     "markdown": "github",
     "scripts": {
         "vscode:prepublish" : "npm run compile",
+
         "compile"           : "tsc -p ./",
         "watch"             : "tsc -watch -p ./",
+        "ejs"               : "cpx src/ejs/** out/ejs --watch --verbose",
+        "tsc-ejs"           : "npm run watch && npm run ejs",
+
         "postinstall"       : "node ./node_modules/vscode/bin/install",
         "test"              : "npm run compile && node ./node_modules/vscode/bin/test"
     },

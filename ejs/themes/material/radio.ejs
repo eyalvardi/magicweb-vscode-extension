@@ -1,0 +1,25 @@
+<mat-radio-group
+        (change)="task.mgOnRadioSelectionChanged($event,'<%- ctrl.props.id %>')"
+
+        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <%- include('../../attributes/common/base/id', {ctrl : ctrl}) %>
+        <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+
+        <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %>
+        required
+        <% } %>
+>
+    <mat-radio-button
+            *ngFor="let o of mg.getItemListValues('<%- ctrl.props.id %>');"
+            [value] = "o.index"   >
+        {{o.displayValue}}
+    </mat-radio-button >
+
+</mat-radio-group>
+
+<% if (ctrl.props.must_input) { %>
+<div *ngIf="(screenFormGroup.get('<%- ctrl.props.id %>').dirty) &&
+            screenFormGroup.get('<%- ctrl.props.id %>').hasError('required')">
+    <p>control status: {{ screenFormGroup.get('<%- ctrl.props.id %>').errors | json }}</p>
+</div>
+<% } %>

@@ -1,0 +1,5 @@
+<%if(ctrl.props.format && !ctrl.props.format.has_exp) { %>
+    <%=ctrl.props.format%>
+<% } else {%>
+    {{mg.getValue('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)}}
+<% } %>

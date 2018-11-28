@@ -1,0 +1,10 @@
+<% if (ctrl.props.is_table_child && ctrl.controlType === MgControlType.CTRL_TYPE_BUTTON) {%>
+  <% if ( ctrl.props.row_editing_type && ctrl.props.row_editing_type !== RowEditingTypes.NoneRowEditing) {%>
+    <% if ( ctrl.props.row_editing_type === RowEditingTypes.EnterRowEditing) {%>
+      *ngIf="!mg.isRowInRowEditing(row)"
+    <%}%>
+    <% if ( ctrl.props.row_editing_type === RowEditingTypes.SaveRowEditing || ctrl.props.row_editing_type === RowEditingTypes.CancelRowEditing) {%>
+*ngIf="mg.isRowInRowEditing(row)"
+<%}%>
+  <%}%>
+<%}%>

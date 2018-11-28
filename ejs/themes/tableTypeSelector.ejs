@@ -1,0 +1,21 @@
+<% switch (ctrl.controlType){
+    case MgControlType.CTRL_TYPE_TABLE: %>
+    <% if (ctrl.props.web_style)%>
+            <% if (typeof ctrl.props.web_style !== "undefined" && ctrl.props.web_style === TableWebStyle.RepeatableItems){ %>
+                <%- include(`./table/repeatable/table`, {ctrl: ctrl}) %>
+            <% } else if (typeof ctrl.props.web_style !== "undefined" && ctrl.props.web_style === TableWebStyle.HTMLTable) {%>
+                <%- include(`./table/HTMLTable/table`, {ctrl: ctrl}) %>
+            <% } else {%>
+                <%- include(`./table/grid/table`, {ctrl: ctrl}) %>
+            <%}%>
+        <% break
+    case MgControlType.CTRL_TYPE_COLUMN: %>
+        <% if (typeof ctrl.props.web_style !== "undefined" && ctrl.props.web_style === TableWebStyle.RepeatableItems) { %>
+            <%- include(`./table/repeatable/column`, {ctrl: ctrl}) %>
+        <% } else if (typeof ctrl.props.web_style !== "undefined" && ctrl.props.web_style === TableWebStyle.HTMLTable){%>
+            <%- include(`./table/HTMLTable/column`, {ctrl: ctrl}) %>
+        <% } else {%>
+            <%- include(`./table/grid/column`, {ctrl: ctrl}) %>
+        <%}%>
+        <% break
+}%>

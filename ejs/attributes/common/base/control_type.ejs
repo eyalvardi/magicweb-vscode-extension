@@ -1,0 +1,54 @@
+<% if(magicConfig.allow_testing) { %>
+    <% switch (ctrl.controlType){
+        case MgControlType.CTRL_TYPE_TEXT: %>
+            <% if (ctrl.controlType === MgControlType.CTRL_TYPE_TEXT && ctrl.props.style != null && ctrl.props.style != undefined && ctrl.props.style.multiline_edit) { %>
+                MgControlType="MgMultiLineEdit"
+            <% } else { %>
+                MgControlType="MgEdit"
+            <% } %>
+        <% break;
+        case MgControlType.CTRL_TYPE_LABEL: %>
+            MgControlType="MgLabel"
+        <% break;
+        case MgControlType.CTRL_TYPE_BUTTON: %>
+            <% switch ((ctrl.props.button_style)) {
+                default : %>
+                    MgControlType="MgPushButton"
+                <% break;
+                case CtrlButtonTypeGui.Image : %>
+                    MgControlType="MgImageButton"
+                <% break;
+                case CtrlButtonTypeGui.Hypertext : %>
+                    MgControlType="MgHyperText"
+                <% break;
+            } %>
+        <% break;
+        case MgControlType.CTRL_TYPE_IMAGE: %>
+            MgControlType="MgImage"
+        <% break;
+        case MgControlType.CTRL_TYPE_SUBFORM: %>
+            MgControlType="MgSubform"
+        <% break;
+        case MgControlType.CTRL_TYPE_CHECKBOX: %>
+            MgControlType="MgCheckBox"
+        <% break;
+        case MgControlType.CTRL_TYPE_COMBO: %>
+            MgControlType="MgComboBox"
+        <% break;
+        case MgControlType.CTRL_TYPE_LIST: %>
+            MgControlType="MgListBox"
+        <% break;
+        case MgControlType.CTRL_TYPE_RADIO: %>
+            MgControlType="MgRadio"
+        <% break;
+        case MgControlType.CTRL_TYPE_TABLE: %>
+            MgControlType="MgTable"
+        <% break;
+        case MgControlType.CTRL_TYPE_GROUP: %>
+            MgControlType="MgGroupBox"
+        <% break;
+        case MgControlType.CTRL_TYPE_TAB: %>
+            MgControlType="MgTab"
+        <% break;
+    } %>
+<% } %>

@@ -1,0 +1,5 @@
+<div class="tab_content"
+     [style.display]="mg.isTabPageSelected('<%- ctrl.props.id %>', <%-ctrl.props.layer %>) ? 'flex' : 'none' "
+      style="flex-direction: column">
+    <%- include(`../container`, {ctrl: ctrl }) %>
+</div>

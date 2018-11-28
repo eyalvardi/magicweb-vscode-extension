@@ -1,0 +1,15 @@
+<% if(ctrl.props.is_table_child){ %>
+<div *ngIf="(mg.getFormGroupByRow(row.rowId).get('<%- ctrl.props.id %>').dirty) && (
+                    mg.getFormGroupByRow(row.rowId).get('<%- ctrl.props.id %>').hasError('pattern')
+                    <% if (ctrl.props.must_input){%> || mg.getFormGroupByRow(row.rowId).get('<%- ctrl.props.id %>').hasError('required') <%}%>
+                    <% if (ctrl.props.validator) {%> || mg.getFormGroupByRow(row.rowId).get('<%- ctrl.props.id %>').hasError('<%- ctrl.props.validator %>')<%}%>)" >
+  <p>{{mg.getErrMsg('<%- ctrl.props.id %>')}}</p>
+</div>
+<% } else { %>
+<div *ngIf="(screenFormGroup.get('<%- ctrl.props.id %>').dirty) && (
+                        screenFormGroup.get('<%- ctrl.props.id %>').hasError('pattern')
+                        <% if (ctrl.props.must_input){%> || screenFormGroup.get('<%- ctrl.props.id %>').hasError('required')  <%}%>
+                        <% if (ctrl.props.validator) {%> || screenFormGroup.get('<%- ctrl.props.id %>').hasError('<%- ctrl.props.validator %>')<%}%>)">
+  <p>{{ mg.getErrMsg('<%- ctrl.props.id %>') }}</p>
+</div>
+<% } %>

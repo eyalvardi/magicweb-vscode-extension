@@ -1,0 +1,6 @@
+<% if (ctrl.props.visible && ctrl.props.visible.has_exp){ %>
+[style.visibility]="mg.getVisible('<%= ctrl.props.id %>'<% if(ctrl.props.is_table_child && (ctrl.controlType !== MgControlType.CTRL_TYPE_COLUMN)){ %>, row.rowId<%}%>)"
+
+
+<%}%>
+

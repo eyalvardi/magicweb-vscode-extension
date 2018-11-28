@@ -1,0 +1,9 @@
+<% if(magicConfig.allow_testing) { %>
+    <% if (ctrl.controlType != MgControlType.CTRL_TYPE_COLUMN && !(ctrl.controlType === MgControlType.CTRL_TYPE_CHECKBOX && theme === "basicHTML")){ %>
+        <% if (ctrl.props.is_table_child){ %>
+            id="<%-ctrl.props.id%>_{{row.rowId}}"
+        <% } else { %>
+            id="<%-ctrl.props.id%>"
+        <%}%>
+    <%}%>
+<%}%>

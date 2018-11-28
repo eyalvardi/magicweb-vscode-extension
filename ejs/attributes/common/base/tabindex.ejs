@@ -1,0 +1,11 @@
+<% if(ctrl.props.tab_into && !ctrl.props.tab_into.value) { %>
+tabindex="-1"
+<% } else{ %>
+<% if(ctrl.props.tab_into && ctrl.props.tab_into.has_exp || ctrl.props.tab_order && ctrl.props.tab_order.has_exp ){ %>
+[tabindex]="mg.getTabIndex('id')"
+<% } else{ %>
+<% if( ctrl.props.tab_order && ctrl.props.tab_order.value) { %>
+tabindex= "<%= ctrl.props.tab_order.value %>"
+<% } %>
+<% } %>
+<% } %>

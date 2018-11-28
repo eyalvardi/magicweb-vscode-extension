@@ -1,0 +1,11 @@
+<div
+    <%- include('../../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        style="display: flex; flex-direction: column"
+        [magicRow]="row?.rowId"
+        <% if(magicConfig.allow_testing) { %>
+            MgControlType="MgCell"
+        <% } %>
+>
+    <%- include(`../../container`, {ctrl: ctrl}) %>
+
+</div>

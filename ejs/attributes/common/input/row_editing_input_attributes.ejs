@@ -1,0 +1,6 @@
+<% if ( child.props.is_table_child ) {%>
+<%# display attribute for if row editing %>
+<%# need to be check if row is editing now and then add InputPropsForRowEditing and set readonly  %>
+[ngClass]="mg.isRowInRowEditing(row) ? 'InputPropsForRowEditing' : 'hidden_border'"
+[readonly]="!mg.isRowInRowEditing(row)"
+<%}%>

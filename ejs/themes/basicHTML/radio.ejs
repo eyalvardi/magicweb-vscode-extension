@@ -1,0 +1,23 @@
+<div
+     <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+     (change)="task.mgOnRadioSelectionChanged($event,'<%-ctrl.props.id%>')"
+     >
+     <div
+        *ngFor="let o of mg.getItemListValues('<%-ctrl.props.id%>');">
+        <label>
+           <input
+                type="radio"
+                <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+                [value] = "o.index"
+                <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+           />
+           {{o.displayValue}}
+        </label>
+     </div>
+    <% if (ctrl.props.must_input) {%>
+    <div *ngIf="(screenFormGroup.get('<%- ctrl.props.id %>').dirty) &&
+            screenFormGroup.get('<%- ctrl.props.id %>').hasError('required')" >
+        <p>{{ mg.getErrMsg('<%- ctrl.props.id %>') }}</p>
+    </div>
+    <%}%>
+</div>

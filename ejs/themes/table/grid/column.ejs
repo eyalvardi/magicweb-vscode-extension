@@ -1,0 +1,16 @@
+<%#--todo unique column name --%>
+<ng-container <%- include('../../../attributes/common/base/id', {ctrl : ctrl}) %> matColumnDef="<%= ctrl.props.id %>">
+    <mat-header-cell *matHeaderCellDef <%- include('../../../attributes/common/base/visible', {ctrl : ctrl}) %>
+            <%- include('../../../attributes/common/base/class', {ctrl : ctrl}) %>
+            <% if(ctrl.props.sortable) { %>
+                mat-sort-header
+            <%}%>
+            > <%= ctrl.props.column_title %> </mat-header-cell>
+    <mat-cell *matCellDef="let row" <%- include('../../../attributes/common/base/visible', {ctrl : ctrl}) %> magicMark="magicTableRowContainer"
+            <% if(magicConfig.allow_testing) { %>
+              MgControlType="MgCell"
+            <% } %>
+    >
+        <%- include(`../../container`, {ctrl: ctrl}) %>
+    </mat-cell>
+</ng-container>

@@ -1,0 +1,6 @@
+<router-outlet <%- include('../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <% if(ctrl.props.default_outlet == null || !ctrl.props.default_outlet){ %>
+        name="<%= ctrl.props.id %>"
+        <% } %>
+>
+</router-outlet>

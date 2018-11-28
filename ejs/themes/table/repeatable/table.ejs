@@ -1,0 +1,28 @@
+
+<div class="<%= ctrl.props.id %>"
+        <%- include('../../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <% if(ctrl.props.scroll_bar) {%>
+     infinite-scroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="500"
+     (scrolled)="tableService.onScrollDown()"
+     [scrollWindow]="false"
+        <%}%>
+>
+    <div *ngFor="let row of task.Records.list">
+        <div *ngIf="mg.ifRowCreated(row) && !mg.isDataviewEmpty()" id="row"
+                <% if(magicConfig.allow_testing) { %>
+             MgControlType="MgRow"
+                <% } %>
+             class="<%= ctrl.props.id %>_table_rowProps"
+             <%if (typeof ctrl.props.no_modifiable_descendants === "undefined") {%>
+                [formGroup]="mg.getFormGroupByRow(row.rowId)"
+             <%}%>
+             [ngClass]="{ 'selected': mg.isRowSelected('<%= ctrl.props.id %>', row.rowId)}"
+             [class.selected]="tableService.getSelectedRow() === row.rowId"
+             (click)="tableService.selectRow(row.rowId)"
+             [magicRow]="row?.rowId">
+            <%- include(`../../container`, {ctrl: ctrl}) %>
+        </div>
+    </div>
+</div>

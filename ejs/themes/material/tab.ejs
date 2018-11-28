@@ -1,0 +1,19 @@
+<div <%- include('../../attributes/common/base/visible', {ctrl : ctrl})%>>
+
+<mat-tab-group <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+  (selectedTabChange)="task.mgOnTabSelectionChanged('<%- ctrl.props.id %>', $event.index)"
+  [selectedIndex]="mg.getTabSelectedIndex('<%- ctrl.props.id %>')"
+>
+  <%# extra div to add the tab style%>
+  <mat-tab *ngFor="let o of mg.getItemListValues('<%- ctrl.props.id %>')"
+    <% if (ctrl.props.enabled){ %>
+           [disabled]="mg.isDisabled('<%- ctrl.props.id %>')"
+    <% } %>
+           [label]="mg.getTabpageText('<%- ctrl.props.id %>', o.index)"
+  >
+  </mat-tab>
+</mat-tab-group>
+<%# add tab pages after adding the buttons, so the buttons are at the top%>
+<%- include(`../container`, {child: ctrl}) %>
+
+ </div>

@@ -1,0 +1,3 @@
+<% if (ctrl.props.button_style && ctrl.props.button_style == CtrlButtonTypeGui.Image){ %>
+[ngStyle]="{'background-image': mg.getStyle(<%- `'${ctrl.props.id}'`%>, magicProperties.ImageFile)}"
+<%}%>

@@ -1,0 +1,7 @@
+<% if(ctrl.props.tooltip && ctrl.props.tooltip.has_exp){ %>
+    <% if(ctrl.controlType === MgControlType.CTRL_TYPE_TABLE && !(ctrl.web_style && ctrl.web_style === TableWebStyle.RepeatableItems) || (ctrl.controlType !== MgControlType.CTRL_TYPE_TABLE && theme === "material")){ %>
+        [matTooltip]="mg.getTitle('<%= ctrl.props.id %>'<% if(ctrl.props.is_table_child && (ctrl.controlType !== MgControlType.CTRL_TYPE_COLUMN)){ %>, row.rowId<% } %>)"
+    <% } else { %>
+        [title]="mg.getTitle('<%= ctrl.props.id %>'<% if(ctrl.props.is_table_child && (ctrl.controlType !== MgControlType.CTRL_TYPE_COLUMN)){ %>, row.rowId<% } %>)"
+    <% } %>
+<% } %>

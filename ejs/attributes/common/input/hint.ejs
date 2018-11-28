@@ -1,0 +1,13 @@
+<% if(ctrl.hint){ %>
+<% if (ctrl.hint.text){ %>
+
+<% if (!ctrl.hint.text.has_exp){ %>
+placeholder="<%= ctrl.hint.text.value %>"
+<% } %>
+
+<% if (ctrl.hint.text.has_exp){ %>
+[placeholder]="mg.getPlaceholder('<%= ctrl.props.id%>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)"
+<% } %>
+
+<% } %>
+<% } %>

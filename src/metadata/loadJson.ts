@@ -106,7 +106,8 @@ export async function readForm( folderPath:string , level:number , project:strin
         path     : json.props.component_path,
         project  : project,
         controls : json.children,
-        parent   : parent
+        parent   : parent,
+        json     : json
     } );
 }
 

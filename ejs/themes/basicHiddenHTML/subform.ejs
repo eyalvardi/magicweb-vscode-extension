@@ -1,0 +1,6 @@
+<div class="<%=ctrl.props.id %>Props">
+    <ndc-dynamic <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>
+        [ndcDynamicComponent]="mgGetComp('<%- ctrl.props.id %>')"
+        [ndcDynamicInputs]="mgGetParameters('<%- ctrl.props.id %>')">
+    </ndc-dynamic>
+</div>

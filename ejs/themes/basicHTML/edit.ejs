@@ -1,0 +1,139 @@
+<% if(ctrl.props.is_table_child){ %>
+   <div [formGroup]="mg.getFormGroupByRow(row.rowId)">
+<%}%>
+
+  <% if (typeof ctrl.props.dataexp === "undefined" && (typeof ctrl.props.modifiable === "undefined" || ctrl.props.modifiable === true || ctrl.props.modifiable.has_exp)){ %>
+    <% switch (ctrl.props.attribute) {
+        default: %>
+                <div>
+                <% if (ctrl.style &&  ctrl.style.multiline_edit ){ %>
+
+                <textarea
+                        type="text"
+                        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+                        <%- include('../../attributes/common/input_attributes', {ctrl : ctrl}) %>
+                        <% if (ctrl.props.pattern) { %> pattern="<%- ctrl.props.pattern %>" <%}%>
+                        <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+                        <% if (ctrl.props.directive) { %><%- ctrl.props.directive %><%}%>
+                        <%- ' '%>
+                        <% if (ctrl.props.validator) { %><%- ctrl.props.validator %><%}%>
+                >
+                </textarea>
+
+                <% } else { %>
+                <input
+                  <% if(ctrl.props.is_table_child){ %>
+                    *ngIf="mg.isRowInRowEditing(row)"
+                  <%}%>
+
+                  <% if (ctrl.props.attribute == StorageAttributeType.Numeric) { %> type='number'
+                        <% }else { %> type='text'
+                        <% } %>
+
+                        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+                        <%- include('../../attributes/common/input_attributes', {ctrl : ctrl}) %>
+                        <% if (ctrl.props.pattern) { %> pattern="<%- ctrl.props.pattern %>" <%}%>
+                        <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+                        <% if (ctrl.props.directive) { %><%- ctrl.props.directive %><%}%>
+                        <%- ' '%>
+                        <% if (ctrl.props.validator) { %><%- ctrl.props.validator %><%}%>
+                />
+                <% } %>
+                  <%# include(`../../attributes/common/input/validation`, {ctrl : ctrl}) %>
+
+                  <% if(ctrl.props.is_table_child){ %>
+
+                  <label
+                      *ngIf="!mg.isRowInRowEditing(row)"
+                     <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>>
+                    {{mg.getValue('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)
+                    <% if (ctrl.props.formatter) { %>| <%- ctrl.props.formatter %> : '<%- ctrl.props.id %>'<%}%>}}
+
+                  </label>
+                  <%}%>
+                </div>
+        <% break;
+        case StorageAttributeType.Date: %>
+
+     <% if(ctrl.props.is_table_child){ %>
+     <div
+       *ngIf="mg.isRowInRowEditing(row)"
+       style="display: flex; flex-direction: row">
+       <%}%>
+
+       <input
+          type="date"
+          <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+          <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+          <%- include('../../attributes/common/input_attributes', {ctrl : ctrl}) %>
+          dateInput
+          <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+          <% if (ctrl.props.validator) { %><%- ctrl.props.validator %><%}%>
+        />
+
+        <% if(ctrl.props.validator){ %>
+           <%# include(`../../attributes/common/input/validation`, {ctrl : ctrl}) %>
+        <% } %>
+
+       <% if(ctrl.props.is_table_child){ %>
+     </div>
+     <%}%>
+
+
+     <% if(ctrl.props.is_table_child){ %>
+     <label
+       *ngIf="!mg.isRowInRowEditing(row)"
+       <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>>
+       {{mg.getValue('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)
+       <% if (ctrl.props.formatter) { %>| <%- ctrl.props.formatter %> : '<%- ctrl.props.id %>'<%}%>}}
+     </label>
+     <%}%>
+
+        <% break;
+
+        case StorageAttributeType.Time: %>
+     <% if(ctrl.props.is_table_child){ %>
+     <div
+       *ngIf="mg.isRowInRowEditing(row)"
+       style="display: flex; flex-direction: row">
+       <%}%>
+
+        <input
+                type="time"
+                <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+                <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+                <%- include('../../attributes/common/input_attributes', {ctrl : ctrl}) %>
+                <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+                <% if (ctrl.props.validator) { %><%- ctrl.props.validator %><%}%>
+                step=1
+        />
+        <% if(ctrl.props.validator){ %>
+            <%# include(`../../attributes/common/input/validation`, {ctrl : ctrl}) %>
+        <% } %>
+
+       <% if(ctrl.props.is_table_child){ %>
+     </div>
+     <%}%>
+
+     <% if(ctrl.props.is_table_child){ %>
+     <label
+       *ngIf="!mg.isRowInRowEditing(row)"
+       <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>>
+       {{mg.getValue('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)
+       <% if (ctrl.props.formatter) { %>| <%- ctrl.props.formatter %> : '<%- ctrl.props.id %>'<%}%>}}
+     </label>
+     <%}%>
+
+        <% break;
+    } %>
+    <% } else { %>
+    <label <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>>
+        {{mg.getValue('<%- ctrl.props.id %>'<% if(ctrl.props.is_table_child){ %>, row.rowId<%}%>)
+        <% if (ctrl.props.formatter) { %>| <%- ctrl.props.formatter %> : '<%- ctrl.props.id %>'<%}%>}}
+
+    </label>
+    <%}%>
+
+<% if(ctrl.props.is_table_child){ %>
+   </div>
+<%}%>

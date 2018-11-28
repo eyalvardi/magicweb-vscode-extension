@@ -1,0 +1,25 @@
+<div>
+<mat-selection-list
+        <%# attributes of the listbox itself %>
+        multiple
+        <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+        <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+        <%- include('../../attributes/common//input_attributes', {ctrl : ctrl}) %>
+        <% if (ctrl.props.must_input && !ctrl.props.must_input.has_exp) { %> required <%}%>
+        <%- include('../../attributes/common/base/enabled', {ctrl : ctrl}) %>
+>
+    <%# build of items in listbox %>
+    <mat-list-option
+            *ngFor="let o of mg.getItemListValues('<%-ctrl.props.id%>');"
+            [value] = "o.index"
+    >
+        {{o.displayValue}}
+    </mat-list-option>
+</mat-selection-list>
+    <% if (ctrl.props.must_input) {%>
+    <div *ngIf="(screenFormGroup.get('<%- ctrl.props.id %>').dirty) &&
+            screenFormGroup.get('<%- ctrl.props.id %>').hasError('required')" >
+        <p>{{ mg.getErrMsg('<%- ctrl.props.id %>') }}</p>
+    </div>
+    <%}%>
+</div>

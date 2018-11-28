@@ -1,0 +1,6 @@
+<% if (ctrl.hasClassExpression) { %>
+[ngClass]="mg.getClasses('<%= ctrl.props.id %>'<% if(ctrl.props.is_table_child && ctrl.controlType !== MgControlType.CTRL_TYPE_COLUMN){ %>, row.rowId<%}%>)"
+<% } %>
+<% if (ctrl.classes && ctrl.controlType !== MgControlType.CTRL_TYPE_COLUMN) { %>
+class="<%= ctrl.classes %>"
+<% } %>

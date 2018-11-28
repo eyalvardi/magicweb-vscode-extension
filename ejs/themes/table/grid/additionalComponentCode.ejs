@@ -1,0 +1,34 @@
+<%let table; %>
+<%initTable(ctrl);%>
+
+<%if(table) { %>                      <%# table was found - loop on columns and get their ids%>
+
+displayedColumns = [
+
+
+<%    table.children.forEach(child=> { %>
+'<%= child.props.id %>',
+<%}) %>
+];
+
+
+<%}%>
+
+<%# function to look for and initialize the table variable %>
+<% function initTable (parent) {%>
+<%    if(parent.children){%>
+<%         parent.children.forEach(child=> {%>
+<%            if(child.controlType === MgControlType.CTRL_TYPE_TABLE) {%>
+<%               table = child; %>
+<%               return;%>
+<%            }%>
+<%         })%>
+
+<%         parent.children.forEach(child=> {%>
+<%            initTable(child);%>
+<%            if(table !== "undefined") {%>
+<%                 return;%>
+<%            }%>
+<%         })%>
+<%      } %>
+<% } %>

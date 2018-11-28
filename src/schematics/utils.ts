@@ -51,7 +51,8 @@ export class Utils {
 
     static writeFileAsync(path: string, obj: any): Promise<void> {
         const writeFile = util.promisify( fs.writeFile);
-        return writeFile(path,JSON.stringify(obj));
+        obj = typeof obj === "string" ? obj : JSON.stringify(obj)
+        return writeFile(path, obj);
     }
 
     /** @todo Replace with utils.promisify() when Electron / VS Code is updated to Node 8 */

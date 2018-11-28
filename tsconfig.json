@@ -10,7 +10,7 @@
         "rootDir": "src",
         "typeRoots": [
             "node_modules/@types",
-            "src/types"
+            "types"
           ],
         /* Strict Type-Checking Option */
         "strict": true,   /* enable all strict type-checking options */
@@ -22,6 +22,8 @@
     },
     "exclude": [
         "node_modules",
+        "ejs",
+        "out",
         ".vscode-test"
         //"src/programes/webViews/views"
     ]

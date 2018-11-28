@@ -1,0 +1,39 @@
+<% if (typeof ctrl.props.modifiable === "undefined" || ctrl.props.modifiable === true || ctrl.props.modifiable.has_exp){ %>
+    <% switch (ctrl.props.attribute) {
+        default: %>
+            <input
+                type="text"
+                 <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>
+                pattern="<%- ctrl.props.pattern %>"
+            />
+            <% break;
+        case StorageAttributeType.Date: %>
+        <input matInput [matDatepicker]="<%- ctrl.props.id %>"
+            <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+            <%- include('../../attributes/common/input_attributes', {ctrl : ctrl}) %>
+            <% if (ctrl.props.validator) { %>
+            <%- ctrl.props.validator %>
+            <% } %>
+>
+            <% break;
+        case StorageAttributeType.Numeric: %>
+            <input
+                type="number"
+                 <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>
+                    pattern="<%- ctrl.props.pattern %>"
+            />
+            <% break;
+        case StorageAttributeType.Time: %>
+            <input
+                type="time"
+                step=1
+                <%- include('../../attributes/common/base/formControlName', {ctrl : ctrl}) %>
+                <%- include('../../attributes/common/base_attributes', {ctrl : ctrl}) %>
+                <%- include('../../attributes/common/input_attributes', {ctrl : ctrl})%>
+            ></input>
+            <% break;
+    } %>
+<% } else { %>
+    <label <%- include('../../attributes/common/no_control_base_attributes', {ctrl : ctrl}) %>>
+    </label>
+<% } %>

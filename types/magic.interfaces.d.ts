@@ -56,14 +56,20 @@ interface MagicTreeItem {
     controls?   : MagicTreeItem[];
     isBootstrap?: boolean;
     project?    : string;
-    parent?     : MagicTreeItem;     
+    parent?     : MagicTreeItem;
+    json?       : Control     
 
 }
 
-// declare module '*.ejs' {
-//     const value: string;
-//     export default value
-//   }
+declare module '*!ejs' {
+    const value: string;
+    export default value
+  }
+
+declare module '*!text' {
+    const value: string;
+    export default value
+}
 
 
 interface Control {
@@ -273,18 +279,5 @@ interface Test {
     builder: string;
     options: BuildOptions;
 }
-
-
-
-
-
-
-  declare module '*!text' {
-    const value: string;
-    export default value
-  }
-
-
-
 
 
