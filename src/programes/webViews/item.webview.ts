@@ -99,7 +99,7 @@ async function createHtmlComponent(treeItem:MagicTreeItem,source:string){
 }
 
 async function createView(view: string, vm: any): Promise<string> {
-    let html = "No data";
+    //let html = "No data";
     const basePath = path.resolve(__dirname, `../../../ejs`);
     const filePath = path.join(basePath, `${view}.ejs`);
     //const itemView = await Utils.readFileAsync(filePath)

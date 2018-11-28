@@ -30,14 +30,6 @@ export const magicTreeView : TreeView<MagicTreeItem> = window.createTreeView<Mag
                                     treeDataProvider : programsTreeProvider
                                 });
 
-//  magicTreeView.onDidExpandElement( e => {
-//     let item = e.element as MagicItem;
-//     item.collapsibleState = item.collapsibleState === 1 ? 2 : 1;
-//     programsTreeProvider.expand(item);
-//  });
-
-
-
 export async function initMagicExtension(context: ExtensionContext) : Promise<void>{
     try{
         await env.refresh();        

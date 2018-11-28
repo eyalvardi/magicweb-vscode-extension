@@ -68,20 +68,25 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "magic.refreshTree",
-                    "group": "navigation"
-                },                
-                {
                     "command": "magic.searchForms",
-                    "group": "navigation"
+                    "group": "navigation",
+                    "when": "magicTree"
                 },
                 {
+                    "command": "magic.refreshTree",
+                    "group": "navigation",
+                    "when": "magicTree"
+                },               
+                
+                {
                     "command": "magic.expand",
-                    "group": "navigation"
+                    "group": "navigation",
+                    "when": "magicTree"
                 },
                 {
                     "command": "magic.collapse",
-                    "group": "navigation"
+                    "group": "navigation",
+                    "when": "magicTree"
                 }
             ],
             "view/item/context": [

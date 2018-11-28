@@ -5,7 +5,7 @@
   <% if (typeof ctrl.props.dataexp === "undefined" && (typeof ctrl.props.modifiable === "undefined" || ctrl.props.modifiable === true || ctrl.props.modifiable.has_exp)){ %>
     <% switch (ctrl.props.attribute) {
         default: %>
-                <div>
+                
                 <% if (ctrl.style &&  ctrl.style.multiline_edit ){ %>
 
                 <textarea
@@ -51,15 +51,13 @@
 
                   </label>
                   <%}%>
-                </div>
+               
         <% break;
         case StorageAttributeType.Date: %>
 
      <% if(ctrl.props.is_table_child){ %>
-     <div
-       *ngIf="mg.isRowInRowEditing(row)"
-       style="display: flex; flex-direction: row">
-       <%}%>
+        <div *ngIf="mg.isRowInRowEditing(row)" >
+     <%}%>
 
        <input
           type="date"

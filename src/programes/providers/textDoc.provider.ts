@@ -1,6 +1,8 @@
 import * as vscode from "vscode";
 import json5 = require("json5");
 import { MagicItem } from "./MagicTreeItem.class";
+import { magicTreeView } from "../magic.extension";
+import { TreeViewVisibilityChangeEvent } from "vscode";
 
 
 export function addTextDocProvider(context: vscode.ExtensionContext) {
@@ -21,5 +23,11 @@ export function addTextDocProvider(context: vscode.ExtensionContext) {
         return result;
     }
   })
-  context.subscriptions.push(mg1); 
+  context.subscriptions.push(mg1);
+  
+  context.subscriptions.push(
+    magicTreeView.onDidChangeVisibility( (e:TreeViewVisibilityChangeEvent) => {
+      vscode.commands.executeCommand('setContext', 'magicTree', e.visible);
+    })
+  );
 }
