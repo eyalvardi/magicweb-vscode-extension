@@ -57,7 +57,9 @@ export async function  readChildren(names : string[] ,stats : fs.Stats[],folderP
     for(let i = 0 ; i < stats.length ; i++) {
         let type : fs.Stats = stats[i];
         let filePath = `${folderPath}\\${names[i]}`;
-        // Magic Folders
+        ////////////////////////////////////////////
+        // LEVEL 0: Magic Folders
+        ////////////////////////////////////////////
         if( type.isDirectory() && level === 0){
             if( await isMagicForm(filePath) ) {
                 result.push(await readFolder( "program" ,names[i],filePath,level+1,project,parent));            
@@ -65,15 +67,27 @@ export async function  readChildren(names : string[] ,stats : fs.Stats[],folderP
                 result.push(await readFolder( "folder" ,names[i],filePath,level+1,project,parent));
             }
         }
+        ////////////////////////////////////////////
+        // LEVEL 1: Program or Form
+        ////////////////////////////////////////////
         // Magic Programs
         else if( type.isDirectory() && level === 1){
             result.push(await readFolder( "program" ,names[i],filePath,level+1,project,parent));
         } 
-        // Magic Tasks or Forms
+        // Magic Form
+        else if( !type.isDirectory() && level === 1){
+            result.push(await readForm( filePath,level,project,parent));
+        }
+        ////////////////////////////////////////////
+        // LEVEL > 1 Task or Form
+        ////////////////////////////////////////////
+        // Magic Tasks
         else if (type.isDirectory() && level > 1){
            result.push(await readFolder( "task" ,names[i],filePath,level+1,project,parent));
                         
-        } else if( !type.isDirectory() && level > 1){
+        } 
+        // Magic Form
+        else if( !type.isDirectory() && level > 1){
             result.push(await readForm( filePath,level+1,project,parent));
         }
     }

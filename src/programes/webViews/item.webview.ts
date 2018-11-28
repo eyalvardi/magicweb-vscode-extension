@@ -98,15 +98,15 @@ async function createHtmlComponent(treeItem:MagicTreeItem,source:string){
     await workspace.openTextDocument(filePath);
 }
 
-async function createView(view: string, vm: any): Promise<string> {
-    //let html = "No data";
+// @ts-nocheck
+async function createView(view: string, vm: any): Promise<any> {
     const basePath = path.resolve(__dirname, `../../../ejs`);
-    const filePath = path.join(basePath, `${view}.ejs`);
-    //const itemView = await Utils.readFileAsync(filePath)
-    return new Promise( (resolve , reject) =>{
-        ejs.renderFile( filePath, vm,(err, output)=>{
-            if(err) reject(err.message);
-            resolve(output);
+    const filePath = path.join   (basePath , `${view}.ejs`);
+
+    return new Promise( (resolve , reject) => {
+        ejs.renderFile( filePath , vm , ( err , output) => {
+            if(err) { reject(err.message); };
+            resolve(output as string);
         } );
     } );
 }

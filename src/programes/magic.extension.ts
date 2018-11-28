@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { window, ExtensionContext, TreeView, TreeViewVisibilityChangeEvent, workspace } from 'vscode';
+import { window, ExtensionContext, TreeView, TreeViewVisibilityChangeEvent } from 'vscode';
 
 import { MagicTreeDataProvider } from './providers/MagicTreeDataProvider.class';
 import { addTextDocProvider } from './providers/textDoc.provider';

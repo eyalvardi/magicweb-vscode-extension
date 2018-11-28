@@ -51,7 +51,7 @@ export class MagicItem extends vscode.TreeItem implements MagicTreeItem{
 	}
 	get project(){ return this.mgTreeItem.project; }
 
-	
+	// @ts-ignore
 	get parent(){ return this._parent || this.mgTreeItem.parent; }
 	set parent(val) { this._parent = val; } 
 	
