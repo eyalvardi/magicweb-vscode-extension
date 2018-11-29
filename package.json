@@ -94,17 +94,17 @@
                 {
                     "command": "magic.expand",
                     "group": "magic@2",
-                    "when": "inMagicProject"
+                    "when": "magicTree"
                 },
                 {
                     "command": "magic.collapse",
                     "group": "magic@3",
-                    "when": "inMagicProject"
+                    "when": "magicTree"
                 },
                 {
                     "command": "magic.openItemProperties",
                     "group": "magic@3",
-                    "when": "inMagicProject"
+                    "when": "magicTree"
                 },
                 {
                     "command": "magic.generateFolder",

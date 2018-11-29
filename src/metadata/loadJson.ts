@@ -6,6 +6,7 @@ import * as JSON5   from 'json5';
 import { MagicItem } from '../programes/providers/MagicTreeItem.class';
 import { env } from '../programes/magic.extension';
 
+
 export async function fetchPrograms() : Promise<MagicTreeItem[]>{
     const filePath = path.join(vscode.workspace.rootPath || "","magic-metadata/magic.config.json");
     console.log(`magic-metadata: ${filePath}`);

@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the "MagicWeb" extension will be documented in this file.
 
+## [0.1.7] 28-11-2018
+- After generate component / control run format document.
+
 ## [0.1.6] 28-11-2018
 - Fix the tree structure in level 1, Didn't read Magic form.
 

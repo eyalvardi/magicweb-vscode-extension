@@ -39,22 +39,22 @@ export function addMagicItemWebView(context: vscode.ExtensionContext) {
 
 
                         // Create and show a new webview
-               const panel = window.createWebviewPanel(
-                            'magicItemProperties',      // Identifies the type of the webview. Used internally
-                            "Magic Item Properties",    // Title of the panel displayed to the user
-                            ViewColumn.One,             // Editor column to show the new webview panel in.
-                            { }                         // Webview options. More on these later.
+            //    const panel = window.createWebviewPanel(
+            //                 'magicItemProperties',      // Identifies the type of the webview. Used internally
+            //                 "Magic Item Properties",    // Title of the panel displayed to the user
+            //                 ViewColumn.One,             // Editor column to show the new webview panel in.
+            //                 { }                         // Webview options. More on these later.
                     
-                );  
+            //     );  
 
                 // And set its HTML content
                // panel.webview.html = await createView('item.view',vm.ctrl);
                const result = await createView('./component/view.component.html',vm);
                
-               panel.webview.html = createPage(result);
+               //panel.webview.html = createPage(result);
 
 
-               createHtmlComponent(treeItem,panel.webview.html);
+               createHtmlComponent(treeItem,result);
 
       
        
@@ -95,7 +95,9 @@ async function createHtmlComponent(treeItem:MagicTreeItem,source:string){
     const filePath = path.join( env.vsWorkspace ,'src/app/magic' ,treeItem.path , `${fileName}.test.component.html`);
     
     await Utils.writeFileAsync(filePath,source);    
-    await workspace.openTextDocument(filePath);
+    const document = await workspace.openTextDocument(filePath);
+    await window.showTextDocument(document);
+    vscode.commands.executeCommand('editor.action.formatDocument');
 }
 
 // @ts-nocheck
@@ -111,7 +113,7 @@ async function createView(view: string, vm: any): Promise<any> {
     } );
 }
 
-function createPage(content:string):string {
+export function createPage(content:string):string {
     const htmlPageTemp = //html
                 `
                 <!DOCTYPE html>
