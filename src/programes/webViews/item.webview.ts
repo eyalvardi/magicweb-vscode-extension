@@ -5,7 +5,7 @@ import { getView } from './views';
 import { env } from '../magic.extension';
 import { MgControlType, CtrlButtonTypeGui, SideType, StorageAttributeType, TableWebStyle, RowEditingTypes, WindowType, WindowPosition } from '../../types';
 import { MagicItem } from '../providers/MagicTreeItem.class';
-import { window, ViewColumn, workspace } from 'vscode';
+import { window, workspace } from 'vscode';
 import { Utils } from '../../schematics/utils';
 
 

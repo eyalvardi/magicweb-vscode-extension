@@ -2,7 +2,7 @@
     "name": "magicweb-vscode-extenstion",
     "displayName": "MagicWeb",
     "description": "MagicWeb generate Angular components form magic metadata. See the site : magicweb.io",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "publisher": "evardi",
     "icon": "media/magicWebLogo.png",
     "bugs": {
